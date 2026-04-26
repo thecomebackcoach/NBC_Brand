@@ -1,0 +1,55 @@
+{
+  "fonts": {
+    "display": {
+      "family": "Inter",
+      "weight": 900,
+      "name": "Inter Black",
+      "googleFontsUrl": "https://fonts.google.com/specimen/Inter",
+      "use": "Display headlines, section breaks, brand wordmark",
+      "fallback": "Helvetica Neue, Arial Black, sans-serif"
+    },
+    "displayBold": {
+      "family": "Inter",
+      "weight": 700,
+      "name": "Inter Bold",
+      "use": "Mid-size headlines, working slide titles"
+    },
+    "labelMedium": {
+      "family": "Inter",
+      "weight": 500,
+      "name": "Inter Medium",
+      "use": "Eyebrow labels, small caps, the 'CONSULTING' descriptor on the wordmark"
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400,
+      "name": "Inter Regular",
+      "use": "Body type"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "weight": 400,
+      "name": "JetBrains Mono",
+      "googleFontsUrl": "https://fonts.google.com/specimen/JetBrains+Mono",
+      "use": "Labels, captions, '// comments', page numbers, tags",
+      "fallback": "ui-monospace, SFMono-Regular, Menlo, Monaco, Courier New, monospace"
+    }
+  },
+  "scale": {
+    "displayHero": { "size": "54-72pt", "weight": 900, "tracking": "-0.04em to -0.05em" },
+    "displaySection": { "size": "130pt", "weight": 900, "tracking": "-0.045em" },
+    "displayLarge": { "size": "30-44pt", "weight": 900, "tracking": "-0.03em" },
+    "displayMedium": { "size": "24-28pt", "weight": 900, "tracking": "-0.025em" },
+    "title": { "size": "18-22pt", "weight": 900, "tracking": "-0.02em" },
+    "body": { "size": "13-16pt", "weight": 400, "tracking": "0" },
+    "bodySmall": { "size": "11-12pt", "weight": 400, "tracking": "0" },
+    "eyebrow": { "size": "10-11pt", "weight": 500, "tracking": "0.18em", "case": "uppercase" },
+    "mono": { "size": "10-12pt", "weight": 400, "tracking": "0.04em" }
+  },
+  "rules": [
+    "Display headlines use tight letter-spacing; body uses default; eyebrow labels use wide tracking and uppercase",
+    "Headlines are sentence case with a period",
+    "No bolding inside paragraphs for emphasis",
+    "Use en dashes, never em dashes"
+  ]
+}

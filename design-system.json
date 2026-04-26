@@ -1,0 +1,443 @@
+{
+  "$schema": "https://nickbanksconsulting.com/design-system.schema.json",
+  "name": "Nick Banks Consulting Design System",
+  "version": "1.0.0",
+  "description": "Visual and editorial system for Nick Banks Consulting (NBC). A practical leadership support practice that sits between fresh/AI-fluent and grounded/human. The system has to hold both.",
+
+  "brand": {
+    "name": "Nick Banks Consulting",
+    "shortName": "NBC",
+    "tagline": "Strategy with a pulse.",
+    "longTagline": "Practical leadership support for organizations doing work that matters.",
+    "location": "Victoria, BC",
+    "website": "nickbanksconsulting.com",
+    "email": "nick@nickbanksconsulting.com",
+    "phone": "778.987.5230",
+    "founder": "Nick Banks",
+    "type": "Sole proprietorship - solo consulting practice"
+  },
+
+  "positioning": {
+    "essence": "NBC helps organizations make important work clearer, more human, and more executable.",
+    "audience": [
+      "Mission-driven leadership teams in healthcare, manufacturing, housing, hospitality, and creative sectors",
+      "Younger founder-led companies (30-something founders, scaling teams, modern operators)",
+      "Boards and senior leaders looking for strategic clarity and leadership development"
+    ],
+    "tension": "Fresh, current, AI-fluent, build-first AND grounded, human, steady, care-led. The system has to hold both. Most consultants pick one.",
+    "isNot": [
+      "Not a serif/literary brand",
+      "Not a warm cream-led editorial brand",
+      "Not a corporate consultancy aesthetic (no chevrons, drop shadows, stock photography)",
+      "Not a startup SaaS aesthetic (no purple gradients, glass-morphism, AI swoosh graphics)",
+      "Not a coach/personal-development aesthetic (no soft pastels, no 'unlock your potential' register)"
+    ]
+  },
+
+  "color": {
+    "surface": {
+      "ink": {
+        "value": "#0E0E0F",
+        "description": "The default surface. Decks, web, social, anything digital. NBC defaults dark."
+      },
+      "offWhite": {
+        "value": "#F5F1E8",
+        "description": "Document-only light surface. Used for proposals, contracts, letterhead, and printed materials. Never used for digital surfaces. If a digital surface needs lightness, use ink with a light-text overlay or one of the dark surface variants - do NOT introduce off-white into web or decks."
+      },
+      "redFullBleed": {
+        "value": "#D9352A",
+        "description": "Red as a full surface. Used once per artifact, typically for the closing slide or hero CTA. The graphic crescendo."
+      }
+    },
+    "text": {
+      "onDark": {
+        "primary": { "value": "#F2F1ED", "description": "Headlines and primary type on ink surfaces (default)." },
+        "secondary": { "value": "#B8B5AB", "description": "Captions, secondary labels on ink surfaces (default)." }
+      },
+      "onLight": {
+        "primary": { "value": "#0A0A0A", "description": "Display headlines on off-white surfaces (documents only)." },
+        "body": { "value": "#1C1B19", "description": "Body type on off-white surfaces (documents only)." },
+        "muted": { "value": "#5C5A53", "description": "Captions and secondary labels on off-white surfaces (documents only)." }
+      },
+      "onRed": {
+        "value": "#FCEEEC",
+        "description": "Text on red full-bleed surfaces."
+      }
+    },
+    "accent": {
+      "red": {
+        "value": "#D9352A",
+        "description": "The signature red. Used as: the dot, monospace label color, red rules, full-bleed accent surfaces. Punctuation, never paint, except for designated full-bleed surfaces."
+      },
+      "redMuted": {
+        "value": "#5C2118",
+        "description": "Used only for oversized section numbers (the racing number device). Sits behind/beside section break headlines."
+      }
+    },
+    "structure": {
+      "hairlineDark": { "value": "#2A2A2A", "description": "Hairline rules on ink surfaces." },
+      "hairlineLight": { "value": "#BDB8AC", "description": "Hairline rules on off-white document surfaces only." }
+    },
+    "rules": [
+      "Ink (#0E0E0F) is the default surface for everything digital - decks, web, social.",
+      "Off-white (#F5F1E8) is for documents only - proposals, contracts, letterhead. Never use off-white in decks or on the web.",
+      "Red is punctuation, never paint, except for one designated full-bleed surface per artifact.",
+      "Don't add colors outside this palette.",
+      "Don't use gradients, shadows, glows, or decorative effects.",
+      "All hairline rules are 0.5px."
+    ]
+  },
+
+  "typography": {
+    "fonts": {
+      "display": {
+        "family": "Inter",
+        "weight": 900,
+        "name": "Inter Black",
+        "use": "Display headlines, section breaks, brand wordmark",
+        "source": "Google Fonts (free)",
+        "fallback": "Helvetica Neue, Arial Black, sans-serif"
+      },
+      "displayBold": {
+        "family": "Inter",
+        "weight": 700,
+        "name": "Inter Bold",
+        "use": "Mid-size headlines, working slide titles"
+      },
+      "labelMedium": {
+        "family": "Inter",
+        "weight": 500,
+        "name": "Inter Medium",
+        "use": "Eyebrow labels, small caps, the 'CONSULTING' descriptor on the wordmark"
+      },
+      "body": {
+        "family": "Inter",
+        "weight": 400,
+        "name": "Inter Regular",
+        "use": "Body type"
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "weight": 400,
+        "name": "JetBrains Mono",
+        "use": "Labels, captions, '// comments', page numbers, tags. The AI-fluent signal.",
+        "source": "Google Fonts (free)",
+        "fallback": "ui-monospace, SFMono-Regular, Menlo, Monaco, Courier New"
+      }
+    },
+    "scale": {
+      "displayHero": { "size": "54-72pt", "weight": 900, "tracking": "-0.04em to -0.05em", "use": "Cover headlines" },
+      "displaySection": { "size": "130pt", "weight": 900, "tracking": "-0.045em", "use": "Section break headline word ('Why', 'What', 'How', 'Now what')" },
+      "displayLarge": { "size": "30-44pt", "weight": 900, "tracking": "-0.03em", "use": "Manifesto, key argument slides" },
+      "displayMedium": { "size": "24-28pt", "weight": 900, "tracking": "-0.025em", "use": "Working slide headlines" },
+      "title": { "size": "18-22pt", "weight": 900, "tracking": "-0.02em", "use": "Card titles, sub-headlines" },
+      "body": { "size": "13-16pt", "weight": 400, "tracking": "0", "use": "Body text" },
+      "bodySmall": { "size": "11-12pt", "weight": 400, "tracking": "0", "use": "Card descriptions, secondary text" },
+      "eyebrow": { "size": "10-11pt", "weight": 500, "tracking": "0.18em", "case": "uppercase", "use": "Section labels with red dot" },
+      "mono": { "size": "10-12pt", "weight": 400, "tracking": "0.04em", "use": "// labels, captions, page numbers" }
+    },
+    "rules": [
+      "Display headlines use tight letter-spacing; body uses default; eyebrow labels use wide tracking and uppercase.",
+      "Headlines are sentence case with a period: 'Make the important work clearer.' not 'MAKE THE IMPORTANT WORK CLEARER' or 'Make The Important Work Clearer'.",
+      "Use the heaviest weight only for moments that earn it.",
+      "Avoid all-caps body type; reserve uppercase for short eyebrow labels.",
+      "No bolding inside paragraphs for emphasis - bolding only for titles, section headers, and labels.",
+      "Use en dashes (–), never em dashes (—).",
+      "Two type weights only in body content: 400 regular and 500 medium. Never 600 or 700 except in display contexts."
+    ]
+  },
+
+  "voice": {
+    "personality": [
+      { "trait": "Clear", "description": "Cut through complexity. Help people name what is happening, organize the moving parts, decide what matters next. Direct, structured, plainspoken. Not dumbed down." },
+      { "trait": "Human", "description": "The work is strategic, but the thread is people. Warm but not soft. The human side is the work, not a side dish. Avoid HR-brochure or therapy-brand register." },
+      { "trait": "Practical", "description": "Turn conversation into structure. Airtable, operating models, meeting rhythms, scorecards, frameworks, decks, roadmaps. 'We can actually build this' energy." },
+      { "trait": "Thoughtful", "description": "Hold tension well. Purpose and performance. Care and accountability. Creativity and discipline. Mature, not simplistic. Not '5 hacks to fix your team.'" },
+      { "trait": "Steady", "description": "Calm, confident, grounded. Calm momentum, not hustle culture. Serious but not stiff. Warm but not sentimental." }
+    ],
+    "perspective": "Speak like a trusted advisor, not a vendor. Use 'I help leadership teams...', 'I work with organizations that...', 'Together, we clarify...'. Avoid 'We provide best-in-class solutions...', 'Unlock your potential...', 'Transform your organization...'.",
+    "lexicon": {
+      "leanInto": ["clarity", "structure", "trust", "execution", "leadership", "culture", "alignment", "momentum", "purpose", "accountability", "decision-making", "systems", "care", "usefulness", "grounded", "practical", "human", "follow-through"],
+      "useCarefully": ["transformation", "disruption", "innovation", "synergy", "optimization", "world-class", "unlock", "empower", "bespoke", "leverage", "holistic", "paradigm"],
+      "preferences": [
+        "Use 'help' often, but not everywhere",
+        "Use 'work' more than 'solutions'",
+        "Use 'clarity' more than 'alignment'",
+        "Use 'follow-through' more than 'execution' when you want warmth",
+        "Use 'structure' instead of 'process' when possible"
+      ]
+    },
+    "phrases": [
+      "Make the important work clearer.",
+      "Turn good intentions into practical systems.",
+      "Help teams move from complexity to clarity.",
+      "Build the structure around the work.",
+      "Create shared language for what matters.",
+      "Help leaders have the conversations they have been avoiding.",
+      "Make values useful in everyday decisions.",
+      "Useful momentum, not beautiful plans.",
+      "Build trust, structure, and momentum."
+    ],
+    "aiTellsToAvoid": [
+      "No negative parallelism: 'It's not X, it's Y'",
+      "No false suspense: 'Here's the kicker'",
+      "No empty signposts: 'It's worth noting'",
+      "No pedagogical voice: 'Let's break this down'",
+      "No 'delve', 'utilize', 'leverage', 'robust', 'streamline', 'harness'",
+      "No em dashes - use en dashes (–) or rewrite",
+      "No invented concept labels like 'the supervision paradox'",
+      "No grandiose stakes inflation"
+    ]
+  },
+
+  "wordmark": {
+    "primary": {
+      "description": "'Nick Banks' set in Inter Black with red dot followed by 'CONSULTING' in Inter Medium uppercase below. The dot is part of the system, not optional.",
+      "files": ["nbc-wordmark.svg (for off-white document surfaces)", "nbc-wordmark-dark.svg (for ink surfaces - default)"]
+    },
+    "lockup": {
+      "description": "Black NB monogram block to the left of the wordmark. For letterhead, proposal covers, and contexts wanting more presence.",
+      "files": ["nbc-lockup.svg (for off-white document surfaces)", "nbc-lockup-dark.svg (for ink surfaces - default)"]
+    },
+    "short": {
+      "description": "'NBC' in Inter Black with red dot tight to the C. For footers, signatures, and tight spaces.",
+      "files": ["nbc-short-mark.svg (for off-white document surfaces)", "nbc-short-mark-dark.svg (for ink surfaces - default)"]
+    },
+    "monogram": {
+      "description": "Square NB monogram on a black block. For favicons and very small surfaces.",
+      "files": ["nbc-monogram.svg", "nbc-monogram-inverse.svg"]
+    },
+    "rules": [
+      "Don't use the wordmark without the red dot on the Consulting line.",
+      "Don't recolor outside the palette.",
+      "Don't squash, stretch, or rotate the marks.",
+      "Don't add effects (shadows, gradients, outlines).",
+      "Minimum size for primary wordmark: 120px wide.",
+      "Minimum size for short mark: 60px wide.",
+      "Minimum size for monogram: 24px square.",
+      "Clear space around any mark: at least the height of the 'N' in the wordmark."
+    ]
+  },
+
+  "motifs": {
+    "redDot": {
+      "description": "A small red circle that lives next to the 'CONSULTING' descriptor on the wordmark, before eyebrow labels on slides, and as a divider in select contexts. The fingerprint of the system.",
+      "size": "5-9px depending on context",
+      "color": "#D9352A"
+    },
+    "racingNumbers": {
+      "description": "On section break slides, the section number ('01', '02', '03', '04') appears as an oversized character in muted red, sitting partially behind or beside the section's headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge of the surface; cropping is intentional.",
+      "color": "#5C2118",
+      "size": "200-280pt for slides at 1920x1080",
+      "position": "Right-aligned, may bleed past the right edge",
+      "weight": "Inter Black 900",
+      "tracking": "Tight: -0.04em to -0.06em"
+    },
+    "monoComments": {
+      "description": "JetBrains Mono labels in red appear as inline column headers ('// what we do', '// the tools', '// process'), as captions under section break headlines, and as small annotations. They look like code comments. They signal AI-fluency without bragging.",
+      "format": "Always start with '// ' (slash slash space)",
+      "color": "#D9352A for labels, #B8B5AB for descriptive captions on dark surfaces, #5C5A53 on off-white document surfaces",
+      "case": "lowercase preferred for caption-style mono ('// the part where we ask better questions')",
+      "examples": [
+        "// the work",
+        "// the tools",
+        "// what we do",
+        "// what you get",
+        "// process",
+        "// the actual work, named four ways",
+        "// fresh, current, ai-fluent. grounded, human, useful."
+      ]
+    },
+    "redFullBleed": {
+      "description": "One slide or section per artifact gets to be on a fully red surface. Typically the closing slide ('Let's talk.'). The graphic crescendo of the artifact.",
+      "color": "#D9352A",
+      "textColor": "#FCEEEC",
+      "use": "Closing slide, hero CTA on web, single editorial moment in long content"
+    },
+    "redRules": {
+      "description": "1px red horizontal lines used on the four-pillar layout (top edge of each pillar) and as accent rules on cards. Sparingly.",
+      "color": "#D9352A",
+      "weight": "1-1.2px"
+    }
+  },
+
+  "layout": {
+    "principles": [
+      "Type does the work. Graphics support, never lead.",
+      "One bold move per surface, with breathing room around it.",
+      "Generous whitespace. The eye should always know where to land.",
+      "Photography is large, lit like a studio shot, real, never stock.",
+      "No decorative chrome: no drop shadows, gradients, rounded soft cards, swooshy graphics, or AI-generated imagery.",
+      "Hairline rules at 0.5px for footer separators and section dividers."
+    ],
+    "deck": {
+      "format": "16:9 (10\" x 5.625\"). Default surface is ink.",
+      "margins": {
+        "horizontal": "0.55\"",
+        "top": "0.45\"",
+        "footerBaseline": "5.18\"",
+        "footerRule": "5.05\""
+      },
+      "footerComponents": [
+        "Hairline rule across page (0.5px, hairlineDark on ink, hairlineLight on off-white)",
+        "Left: NBC short mark with red dot (Inter Black 11pt)",
+        "Center: project tag in monospace (9pt)",
+        "Right: page count in monospace, format '01 / 12' (9pt)"
+      ]
+    },
+    "web": {
+      "primarySurface": "ink (#0E0E0F)",
+      "lightContrast": "Within an ink-led web design, use slight tonal variations of dark (e.g., #1A1A1C, #14141600 with a hairline border) for cards and nested surfaces. Do NOT use off-white for web - off-white is for documents only.",
+      "maxContentWidth": "1200-1400px depending on section",
+      "spacing": "Generous; sections separated by 4-8rem of vertical space"
+    },
+    "documents": {
+      "primarySurface": "off-white (#F5F1E8)",
+      "use": "Proposals, contracts, letterhead, printed materials only.",
+      "rationale": "Documents are read on paper or in PDF readers, where dark surfaces print badly and read poorly. Off-white solves the document use case without dragging the digital brand toward warm/editorial."
+    }
+  },
+
+  "slideTypes": [
+    {
+      "id": "cover",
+      "name": "Cover",
+      "purpose": "Title page. The entry point.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "Brand name in uppercase ('NICK BANKS CONSULTING')",
+        "topRight": "Date or location in monospace",
+        "headline": "Tagline in Inter Black 54-72pt, single line, sentence case with period",
+        "subtitle": "Long tagline in Inter Regular 18pt, max 2 lines",
+        "monoCaption": "// brand-defining short phrase",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "manifesto",
+      "name": "Manifesto",
+      "purpose": "What the brand believes. Argument-driven.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "What we believe / Why this matters / etc.",
+        "headline": "Inter Black 30pt, full argument in 2-3 sentences",
+        "twoColumnResolution": [
+          { "monoLabel": "// the work", "body": "Description of the human/strategic side" },
+          { "monoLabel": "// the tools", "body": "Description of the AI-fluent/build side" }
+        ],
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "sectionBreak",
+      "name": "Section break",
+      "purpose": "Divides the deck into parts. Adds rhythm.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "SECTION",
+        "racingNumber": "Oversized section number (01, 02, 03, 04) in red-muted, right-aligned, may bleed",
+        "headlineWord": "Single word in Inter Black 130pt ('Why', 'What', 'How', 'Now what')",
+        "monoCaption": "// the part where [honest framing of what's coming]",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "portraitFrame",
+      "name": "Portrait + frame",
+      "purpose": "Human-forward proof. The 'who' of the practice.",
+      "composition": {
+        "surface": "ink",
+        "leftColumn": {
+          "eyebrow": "ABOUT",
+          "headline": "Inter Black 21pt, credibility statement",
+          "body": "Inter Regular 13pt, voice-driven description"
+        },
+        "rightColumn": {
+          "image": "Real portrait, lit clean, against neutral backdrop",
+          "caption": "Name in Inter Medium + role in monospace"
+        },
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "fourPillars",
+      "name": "Four pillars",
+      "purpose": "The work, structured. Clarity, Care, Structure, Momentum.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "How the work shows up",
+        "headline": "Inter Black 28pt",
+        "fourColumns": "Each column: red top rule (1px), mono number (01-04) in red, pillar name in Inter Black 26pt, description in Inter Regular 11pt",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "recentWork",
+      "name": "Recent work cards",
+      "purpose": "Concrete proof of work.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "RECENT WORK",
+        "headline": "Inter Black 28pt",
+        "threeCards": "Each card: outline rectangle, red top edge (1.2px), mono tag in red ('// healthcare'), title in Inter Black 19pt, description in Inter Regular 11pt",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "process",
+      "name": "Process steps",
+      "purpose": "How I work, broken down.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "PROCESS",
+        "headline": "Inter Black 28pt",
+        "rows": "Each row: mono number (01-04) in red, title in Inter Black 19pt, mono '// honest annotation' to the right, hairline rule between rows",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "deliverables",
+      "name": "Deliverables",
+      "purpose": "What lands on the client's desk. Tangible.",
+      "composition": {
+        "surface": "ink",
+        "eyebrow": "DELIVERABLES",
+        "headline": "Inter Black 28pt",
+        "twoColumns": "Each column: 3 items, each with mono tag in red ('// strategy', '// people'), and Inter Regular 13pt body description",
+        "footer": "Standard"
+      }
+    },
+    {
+      "id": "closing",
+      "name": "Closing - red full bleed",
+      "purpose": "The graphic crescendo. Call to action.",
+      "composition": {
+        "surface": "redFullBleed",
+        "eyebrow": "END",
+        "headline": "Short CTA in Inter Black 110pt ('Let's talk.', 'Now what.', etc.)",
+        "subtitle": "Inter Regular 16pt, one or two sentences",
+        "monoContact": "Email / phone / website in monospace, separated by ' / '",
+        "footer": "Standard"
+      }
+    }
+  ],
+
+  "documentation": {
+    "footer": "Nick Banks Consulting | Victoria, BC | 778.987.5230 | nick@nickbanksconsulting.com | nickbanksconsulting.com",
+    "fileNaming": "Client_Doctype_YYYY-MM-DD.docx (e.g., BIRCH_Proposal_2026-01-26.docx)",
+    "conventions": {
+      "proposals": "Full branding, marketing-forward, off-white surface",
+      "contracts": "Minimal branding, footer only, off-white surface",
+      "workshopMaterials": "Match the client's brand, not NBC's",
+      "preferredFormat": "Word docs by default, not PDFs, for anything that may need editing"
+    }
+  },
+
+  "applications": {
+    "decks": "PowerPoint, Keynote, Google Slides at 16:9. Ink-led with red full-bleed closing.",
+    "website": "nickbanksconsulting.com - ink-led. Off-white is NOT used on web.",
+    "documents": "Proposals, letterhead, contracts. Off-white surface, document-appropriate.",
+    "social": "LinkedIn banner, post images. Ink-led, type-driven.",
+    "emailSignature": "Lockup or short mark + contact strip in monospace."
+  }
+}

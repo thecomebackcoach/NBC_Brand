@@ -1,0 +1,105 @@
+/* Nick Banks Consulting - Brand CSS variables
+ * Drop this file into any web project. Import once at the root.
+ * Source of truth: design-system.json
+ */
+
+:root {
+  /* Surfaces - the brand defaults to ink. Off-white is the document-only light surface. */
+  --nbc-ink: #0E0E0F;
+  --nbc-off-white: #F5F1E8;
+
+  /* Text on light surfaces (documents) */
+  --nbc-text-primary-light: #0A0A0A;
+  --nbc-text-body-light: #1C1B19;
+  --nbc-text-muted-light: #5C5A53;
+
+  /* Text on dark surfaces (default) */
+  --nbc-text-primary-dark: #F2F1ED;
+  --nbc-text-secondary-dark: #B8B5AB;
+
+  /* Text on red surfaces */
+  --nbc-text-on-red: #FCEEEC;
+
+  /* Accents */
+  --nbc-red: #D9352A;
+  --nbc-red-muted: #5C2118;
+
+  /* Hairlines */
+  --nbc-hairline-dark: #2A2A2A;
+  --nbc-hairline-light: #BDB8AC;
+
+  /* Type */
+  --nbc-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --nbc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --nbc-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+
+  /* Weights */
+  --nbc-weight-black: 900;
+  --nbc-weight-bold: 700;
+  --nbc-weight-medium: 500;
+  --nbc-weight-regular: 400;
+
+  /* Tracking */
+  --nbc-tracking-display: -0.04em;
+  --nbc-tracking-display-tight: -0.05em;
+  --nbc-tracking-eyebrow: 0.18em;
+  --nbc-tracking-mono: 0.04em;
+
+  /* Spacing scale (rem-based, for consistent rhythm) */
+  --nbc-space-xs: 0.25rem;
+  --nbc-space-sm: 0.5rem;
+  --nbc-space-md: 1rem;
+  --nbc-space-lg: 2rem;
+  --nbc-space-xl: 4rem;
+  --nbc-space-xxl: 8rem;
+
+  /* Hairline */
+  --nbc-hairline-width: 0.5px;
+
+  /* Border radius - keep small. NBC is sharp, not rounded. */
+  --nbc-radius-sm: 2px;
+  --nbc-radius-md: 4px;
+}
+
+/* Recommended Google Fonts import (add to <head> or top of CSS):
+ *
+ * @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap');
+ *
+ */
+
+/* Utility classes for common patterns */
+
+.nbc-eyebrow {
+  font-family: var(--nbc-font-body);
+  font-weight: var(--nbc-weight-medium);
+  font-size: 11px;
+  letter-spacing: var(--nbc-tracking-eyebrow);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nbc-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--nbc-red);
+  border-radius: 50%;
+}
+
+.nbc-mono-label {
+  font-family: var(--nbc-font-mono);
+  font-weight: var(--nbc-weight-regular);
+  font-size: 12px;
+  letter-spacing: var(--nbc-tracking-mono);
+  color: var(--nbc-red);
+}
+
+.nbc-display {
+  font-family: var(--nbc-font-display);
+  font-weight: var(--nbc-weight-black);
+  letter-spacing: var(--nbc-tracking-display);
+  line-height: 0.95;
+}
