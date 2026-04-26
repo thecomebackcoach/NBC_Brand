@@ -463,6 +463,16 @@ If you can't tell which motifs are doing the work on a finished slide, the slide
 
 ---
 
+## Surface choice and rhythm
+
+The motifs above are surface-agnostic - they work on white, ink, or red. The decision of *which* surface to use for a given artifact section is governed by the surface rhythm principle in `design-system.json` (under `surfaceRhythm`) and `BRAND_GUIDELINES.md`.
+
+Short version: default white. Use ink when content earns weight (the manifesto, dense card layouts, pause-before-crescendo section breaks). Use red full-bleed once per artifact for the graphic crescendo.
+
+Mechanical alternation is the trap. Real rhythm follows the content.
+
+---
+
 ## When to add a new motif
 
 Don't add a motif until you've used it three times across different artifacts. Brand systems get bloated when every one-off treatment becomes a documented pattern. Keep this file lean.

@@ -40,6 +40,18 @@ Red (`#D9352A`) becomes a full-bleed surface for one designated moment per artif
 
 Off-white (`#F5F1E8`) is the document-only surface for proposals, contracts, and letterhead. It exists because documents are read on paper or in PDF readers where pure white can read harsh. Off-white is never used on digital surfaces.
 
+### Surface rhythm
+
+Default to white. Use dark and red when content earns the weight, not on a schedule. Mechanical alternation is not rhythm - it's a pattern. Real rhythm follows the content.
+
+**Use white** for the default, hero/cover sections, detailed structured content (process steps, multi-column layouts), reference content (pillars, grids, tables), transitional section breaks, and body-heavy sections where readability matters most.
+
+**Use ink** for the brand's central argument (the manifesto), dense card-based layouts where cards carry a lot of structure (recent work cards, case studies), section breaks that mark a meaningful transition or pause, and single-statement slides where the goal is gravity rather than detail.
+
+**Use red full-bleed** once per artifact maximum, for the graphic crescendo - typically the closing slide or hero CTA.
+
+The trap to avoid: alternating light/dark every section because variety feels safe. That's a pattern. Real rhythm has asymmetry. Some artifacts will have three white sections in a row, then ink, then more white. That's fine if each surface choice is content-driven.
+
 ### Type
 
 Three typefaces, each with one job. All free.

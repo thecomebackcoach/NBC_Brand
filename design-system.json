@@ -452,5 +452,53 @@
     "documents": "Proposals, letterhead, contracts. Off-white surface, document-appropriate.",
     "social": "LinkedIn banner, post images. White-led by default, ink variant for high-impact moments, type-driven.",
     "emailSignature": "Lockup or short mark + contact strip in monospace."
+  },
+
+  "surfaceRhythm": {
+    "principle": "Default to white. Use dark and red surfaces when content earns the weight, not on a schedule. Mechanical alternation is not rhythm - it's a pattern. Real rhythm follows the content.",
+    "whenToUseWhite": [
+      "The default. Most content lives here.",
+      "Hero/cover sections - open with breathing room",
+      "Detailed structured content (process steps, multi-column layouts, lists with annotations)",
+      "Reference content like four pillars, deliverables grids, comparison tables",
+      "Transitional section breaks that don't need to make a moment",
+      "Body-heavy sections where readability matters most"
+    ],
+    "whenToUseInk": [
+      "The brand's central argument - the manifesto, the 'this is what I believe' moment",
+      "Dense card-based layouts where cards have a lot of structure (red top edges, mono tags, titles, descriptions all together) - cards land harder on dark",
+      "Section breaks that mark a meaningful transition or pause, especially before the crescendo",
+      "Single-statement slides where the goal is gravity, not detail",
+      "Quote slides or testimonial moments where you want weight"
+    ],
+    "whenToUseRed": [
+      "Once per artifact maximum",
+      "The graphic crescendo - typically the closing slide ('Let's talk.', the CTA)",
+      "Hero CTA on landing pages",
+      "Never as a transitional surface - red is always the destination, not the journey"
+    ],
+    "antiPatterns": [
+      "Don't alternate light/dark every section - that's a pattern, not rhythm",
+      "Don't use ink for transitional content just to add variety - if the content doesn't earn the weight, stay light",
+      "Don't use red surfaces more than once in a single artifact",
+      "Don't force the rhythm; let the content drive surface choices",
+      "Don't put dense card layouts on white when they'll feel cramped - cards need ink"
+    ],
+    "exampleSequence": {
+      "description": "A typical 12-slide brand deck demonstrating the principle in action. Note this is one possible sequence, not a template - apply judgment to each artifact.",
+      "slides": [
+        { "slide": 1, "name": "Cover", "surface": "white", "rationale": "Open with breathing room, headline does the work" },
+        { "slide": 2, "name": "Manifesto", "surface": "ink", "rationale": "The brand's central argument - earns the weight" },
+        { "slide": 3, "name": "Section break - Why", "surface": "white", "rationale": "Transitional, no need to make a moment" },
+        { "slide": 4, "name": "Four pillars", "surface": "white", "rationale": "Structural reference content - reads cleaner on light" },
+        { "slide": 5, "name": "Section break - What", "surface": "white", "rationale": "Transitional" },
+        { "slide": 6, "name": "Recent work cards", "surface": "ink", "rationale": "Card density with structure earns dark - cards land harder" },
+        { "slide": 7, "name": "Section break - How", "surface": "white", "rationale": "Transitional" },
+        { "slide": 8, "name": "Process steps", "surface": "white", "rationale": "Line-by-line detail - white reads better" },
+        { "slide": 9, "name": "Deliverables", "surface": "white", "rationale": "Structured grid content" },
+        { "slide": 10, "name": "Section break - Now what", "surface": "ink", "rationale": "Final pause before the crescendo - earns weight" },
+        { "slide": 11, "name": "Closing - Let's talk", "surface": "red", "rationale": "The graphic crescendo - one per artifact" }
+      ]
+    }
   }
 }
