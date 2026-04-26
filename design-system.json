@@ -204,8 +204,8 @@
       "files": ["nbc-short-mark.svg (for off-white document surfaces)", "nbc-short-mark-dark.svg (for ink surfaces - default)"]
     },
     "monogram": {
-      "description": "Square NB monogram on a black block. For favicons and very small surfaces.",
-      "files": ["nbc-monogram.svg", "nbc-monogram-inverse.svg"]
+      "description": "Square NB monogram on a black block. Universal mark - works on both ink and off-white surfaces because the block is part of the design and contains its own contrast. Use for favicons, profile pictures, and very small surfaces.",
+      "files": ["nbc-monogram.svg"]
     },
     "rules": [
       "Don't use the wordmark without the red dot on the Consulting line.",

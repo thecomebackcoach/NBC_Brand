@@ -60,9 +60,8 @@ Four marks live in the system:
 - **Primary wordmark** (`logos/nbc-wordmark-dark.svg`) - default for ink surfaces. Use the light variant only on off-white documents.
 - **Lockup** (`logos/nbc-lockup-dark.svg`) - black NB block beside the wordmark, for letterhead and contexts wanting more presence
 - **Short mark** (`logos/nbc-short-mark-dark.svg`) - "NBC" with red dot tight to the C, for footers and signatures
-- **Monogram** (`logos/nbc-monogram.svg`) - square NB on black block, for favicons and tight square spaces
-
-Dark variants are the default (for ink surfaces). Light variants are only used on off-white document surfaces.
+- Monogram (logos/nbc-monogram.svg) - square NB on black block, for favicons and tight square spaces. Universal mark - works on both ink and off-white surfaces because the block is part of the design.
+Dark variants of the wordmark, lockup, and short mark are the default (for ink surfaces). Light variants are only used on off-white document surfaces. The monogram has no separate variant - it works everywhere as-is.
 
 ### Motifs
 
