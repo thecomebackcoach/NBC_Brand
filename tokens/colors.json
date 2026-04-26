@@ -1,4 +1,5 @@
 {
+  "white": "#FFFFFF",
   "ink": "#0E0E0F",
   "offWhite": "#F5F1E8",
   "black": "#0A0A0A",
@@ -8,7 +9,8 @@
   "textOnDarkSecondary": "#B8B5AB",
   "textOnRed": "#FCEEEC",
   "red": "#D9352A",
-  "redMuted": "#5C2118",
+  "redRecedeOnLight": "rgba(217, 53, 42, 0.35)",
+  "redRecedeOnDark": "rgba(217, 53, 42, 0.25)",
   "hairlineDark": "#2A2A2A",
   "hairlineLight": "#BDB8AC"
 }

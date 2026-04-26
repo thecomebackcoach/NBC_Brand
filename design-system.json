@@ -27,7 +27,7 @@
     "tension": "Fresh, current, AI-fluent, build-first AND grounded, human, steady, care-led. The system has to hold both. Most consultants pick one.",
     "isNot": [
       "Not a serif/literary brand",
-      "Not a warm cream-led editorial brand",
+      "Not a warm cream-led editorial brand (earlier explorations used cream as a primary surface; the brand now uses pure white as default with off-white reserved for documents)",
       "Not a corporate consultancy aesthetic (no chevrons, drop shadows, stock photography)",
       "Not a startup SaaS aesthetic (no purple gradients, glass-morphism, AI swoosh graphics)",
       "Not a coach/personal-development aesthetic (no soft pastels, no 'unlock your potential' register)"
@@ -36,28 +36,32 @@
 
   "color": {
     "surface": {
+      "white": {
+        "value": "#FFFFFF",
+        "description": "Default surface for digital applications - web, decks on screen, social cards. The brand defaults light."
+      },
       "ink": {
         "value": "#0E0E0F",
-        "description": "The default surface. Decks, web, social, anything digital. NBC defaults dark."
+        "description": "Contrast/dark variant of artifacts. Used for decks projected in dim rooms, contrast sections within light-led web pages, and any artifact that calls for the dark treatment."
       },
       "offWhite": {
         "value": "#F5F1E8",
-        "description": "Document-only light surface. Used for proposals, contracts, letterhead, and printed materials. Never used for digital surfaces. If a digital surface needs lightness, use ink with a light-text overlay or one of the dark surface variants - do NOT introduce off-white into web or decks."
+        "description": "Document-only light surface for proposals, contracts, letterhead. Never used in digital surfaces - those use white."
       },
       "redFullBleed": {
         "value": "#D9352A",
-        "description": "Red as a full surface. Used once per artifact, typically for the closing slide or hero CTA. The graphic crescendo."
+        "description": "Red as a full surface. Used once per artifact, typically the closing slide or hero CTA. The graphic crescendo."
       }
     },
     "text": {
-      "onDark": {
-        "primary": { "value": "#F2F1ED", "description": "Headlines and primary type on ink surfaces (default)." },
-        "secondary": { "value": "#B8B5AB", "description": "Captions, secondary labels on ink surfaces (default)." }
-      },
       "onLight": {
-        "primary": { "value": "#0A0A0A", "description": "Display headlines on off-white surfaces (documents only)." },
-        "body": { "value": "#1C1B19", "description": "Body type on off-white surfaces (documents only)." },
-        "muted": { "value": "#5C5A53", "description": "Captions and secondary labels on off-white surfaces (documents only)." }
+        "primary": { "value": "#0A0A0A", "description": "Display headlines on white and off-white surfaces." },
+        "body": { "value": "#1C1B19", "description": "Body type on white and off-white surfaces." },
+        "muted": { "value": "#5C5A53", "description": "Captions and secondary labels on white and off-white surfaces." }
+      },
+      "onDark": {
+        "primary": { "value": "#F2F1ED", "description": "Headlines and primary type on ink surfaces (contrast variant)." },
+        "secondary": { "value": "#B8B5AB", "description": "Captions, secondary labels on ink surfaces (contrast variant)." }
       },
       "onRed": {
         "value": "#FCEEEC",
@@ -68,20 +72,28 @@
       "red": {
         "value": "#D9352A",
         "description": "The signature red. Used as: the dot, monospace label color, red rules, full-bleed accent surfaces. Punctuation, never paint, except for designated full-bleed surfaces."
+      }
+    },
+    "recede": {
+      "onLight": {
+        "value": "rgba(217, 53, 42, 0.35)",
+        "description": "Brand red at 35% opacity. Used for the racing number motif on light surfaces. Same red, calibrated to recede on white."
       },
-      "redMuted": {
-        "value": "#5C2118",
-        "description": "Used only for oversized section numbers (the racing number device). Sits behind/beside section break headlines."
+      "onDark": {
+        "value": "rgba(217, 53, 42, 0.25)",
+        "description": "Brand red at 25% opacity. Used for the racing number motif on ink surfaces. Same red, calibrated to recede on dark."
       }
     },
     "structure": {
       "hairlineDark": { "value": "#2A2A2A", "description": "Hairline rules on ink surfaces." },
-      "hairlineLight": { "value": "#BDB8AC", "description": "Hairline rules on off-white document surfaces only." }
+      "hairlineLight": { "value": "#BDB8AC", "description": "Hairline rules on white and off-white surfaces." }
     },
     "rules": [
-      "Ink (#0E0E0F) is the default surface for everything digital - decks, web, social.",
+      "White (#FFFFFF) is the default surface for everything digital - web, decks on screen, social.",
+      "Ink (#0E0E0F) is the contrast variant. Used for decks shown in dim projection environments, dark sections within light-led pages, and artifacts that call for it.",
       "Off-white (#F5F1E8) is for documents only - proposals, contracts, letterhead. Never use off-white in decks or on the web.",
       "Red is punctuation, never paint, except for one designated full-bleed surface per artifact.",
+      "Racing numbers use the brand red at reduced opacity (35% on light, 25% on dark), not a separate muted color.",
       "Don't add colors outside this palette.",
       "Don't use gradients, shadows, glows, or decorative effects.",
       "All hairline rules are 0.5px."
@@ -193,15 +205,15 @@
   "wordmark": {
     "primary": {
       "description": "'Nick Banks' set in Inter Black with red dot followed by 'CONSULTING' in Inter Medium uppercase below. The dot is part of the system, not optional.",
-      "files": ["nbc-wordmark.svg (for off-white document surfaces)", "nbc-wordmark-dark.svg (for ink surfaces - default)"]
+      "files": ["nbc-wordmark.svg (light variant - for white and off-white surfaces, the default)", "nbc-wordmark-dark.svg (dark variant - for ink contrast surfaces)"]
     },
     "lockup": {
       "description": "Black NB monogram block to the left of the wordmark. For letterhead, proposal covers, and contexts wanting more presence.",
-      "files": ["nbc-lockup.svg (for off-white document surfaces)", "nbc-lockup-dark.svg (for ink surfaces - default)"]
+      "files": ["nbc-lockup.svg (light variant - for white and off-white surfaces, the default)", "nbc-lockup-dark.svg (dark variant - for ink contrast surfaces)"]
     },
     "short": {
       "description": "'NBC' in Inter Black with red dot tight to the C. For footers, signatures, and tight spaces.",
-      "files": ["nbc-short-mark.svg (for off-white document surfaces)", "nbc-short-mark-dark.svg (for ink surfaces - default)"]
+      "files": ["nbc-short-mark.svg (light variant - for white and off-white surfaces, the default)", "nbc-short-mark-dark.svg (dark variant - for ink contrast surfaces)"]
     },
     "monogram": {
       "description": "Square NB monogram on a black block. Universal mark - works on both ink and off-white surfaces because the block is part of the design and contains its own contrast. Use for favicons, profile pictures, and very small surfaces.",
@@ -226,8 +238,9 @@
       "color": "#D9352A"
     },
     "racingNumbers": {
-      "description": "On section break slides, the section number ('01', '02', '03', '04') appears as an oversized character in muted red, sitting partially behind or beside the section's headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge of the surface; cropping is intentional.",
-      "color": "#5C2118",
+      "description": "On section break slides, the section number ('01', '02', '03', '04') appears as an oversized character in brand red at reduced opacity, sitting partially behind or beside the section's headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge of the surface; cropping is intentional.",
+      "color": "#D9352A at 35% opacity on light surfaces, 25% opacity on dark surfaces",
+      "colorNote": "The system uses brand red with opacity, not a separate muted color, for system simplicity. There is no 'red-muted' token; the same #D9352A is calibrated to recede via opacity per surface (use --nbc-red-recede-on-light or --nbc-red-recede-on-dark).",
       "size": "200-280pt for slides at 1920x1080",
       "position": "Right-aligned, may bleed past the right edge",
       "weight": "Inter Black 900",
@@ -236,7 +249,7 @@
     "monoComments": {
       "description": "JetBrains Mono labels in red appear as inline column headers ('// what we do', '// the tools', '// process'), as captions under section break headlines, and as small annotations. They look like code comments. They signal AI-fluency without bragging.",
       "format": "Always start with '// ' (slash slash space)",
-      "color": "#D9352A for labels, #B8B5AB for descriptive captions on dark surfaces, #5C5A53 on off-white document surfaces",
+      "color": "#D9352A for labels; #5C5A53 for descriptive captions on white and off-white surfaces; #B8B5AB for descriptive captions on ink surfaces",
       "case": "lowercase preferred for caption-style mono ('// the part where we ask better questions')",
       "examples": [
         "// the work",
@@ -271,7 +284,7 @@
       "Hairline rules at 0.5px for footer separators and section dividers."
     ],
     "deck": {
-      "format": "16:9 (10\" x 5.625\"). Default surface is ink.",
+      "format": "16:9 (10\" x 5.625\"). Default surface is white. Ink variant available for projection in dim rooms.",
       "margins": {
         "horizontal": "0.55\"",
         "top": "0.45\"",
@@ -279,15 +292,15 @@
         "footerRule": "5.05\""
       },
       "footerComponents": [
-        "Hairline rule across page (0.5px, hairlineDark on ink, hairlineLight on off-white)",
+        "Hairline rule across page (0.5px, hairlineLight on white, hairlineDark on ink)",
         "Left: NBC short mark with red dot (Inter Black 11pt)",
         "Center: project tag in monospace (9pt)",
         "Right: page count in monospace, format '01 / 12' (9pt)"
       ]
     },
     "web": {
-      "primarySurface": "ink (#0E0E0F)",
-      "lightContrast": "Within an ink-led web design, use slight tonal variations of dark (e.g., #1A1A1C, #14141600 with a hairline border) for cards and nested surfaces. Do NOT use off-white for web - off-white is for documents only.",
+      "primarySurface": "white (#FFFFFF)",
+      "contrast": "Within a white-led web design, ink (#0E0E0F) sections are used sparingly for emphasis - one or two contrast moments per page. Off-white is NOT used on web; off-white is for documents only.",
       "maxContentWidth": "1200-1400px depending on section",
       "spacing": "Generous; sections separated by 4-8rem of vertical space"
     },
@@ -304,7 +317,7 @@
       "name": "Cover",
       "purpose": "Title page. The entry point.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "Brand name in uppercase ('NICK BANKS CONSULTING')",
         "topRight": "Date or location in monospace",
         "headline": "Tagline in Inter Black 54-72pt, single line, sentence case with period",
@@ -318,7 +331,7 @@
       "name": "Manifesto",
       "purpose": "What the brand believes. Argument-driven.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "What we believe / Why this matters / etc.",
         "headline": "Inter Black 30pt, full argument in 2-3 sentences",
         "twoColumnResolution": [
@@ -333,9 +346,9 @@
       "name": "Section break",
       "purpose": "Divides the deck into parts. Adds rhythm.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "SECTION",
-        "racingNumber": "Oversized section number (01, 02, 03, 04) in red-muted, right-aligned, may bleed",
+        "racingNumber": "Oversized section number (01, 02, 03, 04) in brand red at reduced opacity (35% on light surfaces, 25% on dark), right-aligned, may bleed",
         "headlineWord": "Single word in Inter Black 130pt ('Why', 'What', 'How', 'Now what')",
         "monoCaption": "// the part where [honest framing of what's coming]",
         "footer": "Standard"
@@ -346,7 +359,7 @@
       "name": "Portrait + frame",
       "purpose": "Human-forward proof. The 'who' of the practice.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "leftColumn": {
           "eyebrow": "ABOUT",
           "headline": "Inter Black 21pt, credibility statement",
@@ -364,7 +377,7 @@
       "name": "Four pillars",
       "purpose": "The work, structured. Clarity, Care, Structure, Momentum.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "How the work shows up",
         "headline": "Inter Black 28pt",
         "fourColumns": "Each column: red top rule (1px), mono number (01-04) in red, pillar name in Inter Black 26pt, description in Inter Regular 11pt",
@@ -376,7 +389,7 @@
       "name": "Recent work cards",
       "purpose": "Concrete proof of work.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "RECENT WORK",
         "headline": "Inter Black 28pt",
         "threeCards": "Each card: outline rectangle, red top edge (1.2px), mono tag in red ('// healthcare'), title in Inter Black 19pt, description in Inter Regular 11pt",
@@ -388,7 +401,7 @@
       "name": "Process steps",
       "purpose": "How I work, broken down.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "PROCESS",
         "headline": "Inter Black 28pt",
         "rows": "Each row: mono number (01-04) in red, title in Inter Black 19pt, mono '// honest annotation' to the right, hairline rule between rows",
@@ -400,7 +413,7 @@
       "name": "Deliverables",
       "purpose": "What lands on the client's desk. Tangible.",
       "composition": {
-        "surface": "ink",
+        "surface": "white",
         "eyebrow": "DELIVERABLES",
         "headline": "Inter Black 28pt",
         "twoColumns": "Each column: 3 items, each with mono tag in red ('// strategy', '// people'), and Inter Regular 13pt body description",
@@ -434,10 +447,10 @@
   },
 
   "applications": {
-    "decks": "PowerPoint, Keynote, Google Slides at 16:9. Ink-led with red full-bleed closing.",
-    "website": "nickbanksconsulting.com - ink-led. Off-white is NOT used on web.",
+    "decks": "PowerPoint, Keynote, Google Slides at 16:9. White-led by default with red full-bleed closing. Ink variant available for decks shown in dim projection environments.",
+    "website": "nickbanksconsulting.com - white-led. Ink contrast sections used sparingly for emphasis.",
     "documents": "Proposals, letterhead, contracts. Off-white surface, document-appropriate.",
-    "social": "LinkedIn banner, post images. Ink-led, type-driven.",
+    "social": "LinkedIn banner, post images. White-led by default, ink variant for high-impact moments, type-driven.",
     "emailSignature": "Lockup or short mark + contact strip in monospace."
   }
 }

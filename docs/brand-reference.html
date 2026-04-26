@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
+    --white: #FFFFFF;
     --ink: #0E0E0F;
     --off-white: #F5F1E8;
     --black: #0A0A0A;
@@ -18,7 +19,8 @@
     --text-on-dark-secondary: #B8B5AB;
     --text-on-red: #FCEEEC;
     --red: #D9352A;
-    --red-muted: #5C2118;
+    --red-recede-on-light: rgba(217, 53, 42, 0.35);
+    --red-recede-on-dark: rgba(217, 53, 42, 0.25);
     --hairline-dark: #2A2A2A;
     --hairline-light: #BDB8AC;
     --font-display: 'Inter', sans-serif;
@@ -30,8 +32,8 @@
 
   body {
     font-family: var(--font-body);
-    background: var(--ink);
-    color: var(--text-on-dark);
+    background: var(--white);
+    color: var(--charcoal);
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
   }
@@ -47,7 +49,7 @@
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-on-dark);
+    color: var(--charcoal);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -65,7 +67,7 @@
   .mono {
     font-family: var(--font-mono);
     font-size: 13px;
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
   }
   .mono-red {
     font-family: var(--font-mono);
@@ -76,7 +78,7 @@
 
   .hero {
     padding-bottom: 6rem;
-    border-bottom: 0.5px solid var(--hairline-dark);
+    border-bottom: 0.5px solid var(--hairline-light);
     margin-bottom: 4rem;
     position: relative;
   }
@@ -87,10 +89,11 @@
     line-height: 0.95;
     letter-spacing: -0.045em;
     margin: 1rem 0 1.5rem;
+    color: var(--black);
   }
   .hero .lede {
     font-size: 20px;
-    color: var(--text-on-dark-secondary);
+    color: var(--charcoal);
     max-width: 600px;
     margin-bottom: 1.5rem;
     line-height: 1.5;
@@ -98,7 +101,7 @@
 
   section {
     padding: 4rem 0;
-    border-bottom: 0.5px solid var(--hairline-dark);
+    border-bottom: 0.5px solid var(--hairline-light);
   }
   section:last-of-type { border-bottom: none; }
 
@@ -109,6 +112,7 @@
     letter-spacing: -0.03em;
     line-height: 1;
     margin: 1.5rem 0 2rem;
+    color: var(--black);
   }
 
   h3 {
@@ -117,15 +121,16 @@
     font-size: 22px;
     letter-spacing: -0.02em;
     margin: 2rem 0 1rem;
+    color: var(--black);
   }
 
   p {
     margin-bottom: 1rem;
-    color: var(--text-on-dark);
+    color: var(--charcoal);
     max-width: 65ch;
   }
   p.muted {
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
   }
 
   .swatch-grid {
@@ -135,7 +140,7 @@
     margin-top: 2rem;
   }
   .swatch {
-    border: 0.5px solid var(--hairline-dark);
+    border: 0.5px solid var(--hairline-light);
     overflow: hidden;
   }
   .swatch-color {
@@ -145,21 +150,21 @@
     padding: 12px 14px;
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-on-dark-secondary);
-    background: var(--ink);
+    color: var(--muted);
+    background: var(--white);
   }
   .swatch-name {
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
-    color: var(--text-on-dark);
+    color: var(--black);
     margin-bottom: 2px;
     letter-spacing: 0;
     text-transform: none;
   }
 
   .type-spec {
-    border-top: 0.5px solid var(--hairline-dark);
+    border-top: 0.5px solid var(--hairline-light);
     padding: 1.5rem 0;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -169,26 +174,29 @@
   .type-spec-meta {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
-  .type-display { font-family: var(--font-display); font-weight: 900; font-size: 56px; letter-spacing: -0.04em; line-height: 1; }
-  .type-large { font-family: var(--font-display); font-weight: 900; font-size: 32px; letter-spacing: -0.025em; line-height: 1.05; }
-  .type-medium { font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.02em; }
-  .type-eyebrow { font-family: var(--font-body); font-weight: 500; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
-  .type-body { font-family: var(--font-body); font-weight: 400; font-size: 16px; }
+  .type-display { font-family: var(--font-display); font-weight: 900; font-size: 56px; letter-spacing: -0.04em; line-height: 1; color: var(--black); }
+  .type-large { font-family: var(--font-display); font-weight: 900; font-size: 32px; letter-spacing: -0.025em; line-height: 1.05; color: var(--black); }
+  .type-medium { font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.02em; color: var(--black); }
+  .type-eyebrow { font-family: var(--font-body); font-weight: 500; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--charcoal); }
+  .type-body { font-family: var(--font-body); font-weight: 400; font-size: 16px; color: var(--charcoal); }
   .type-mono-spec { font-family: var(--font-mono); font-weight: 400; font-size: 14px; color: var(--red); }
 
   .mark-display {
-    background: var(--ink);
-    border: 0.5px solid var(--hairline-dark);
+    background: var(--white);
+    border: 0.5px solid var(--hairline-light);
     padding: 4rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 1rem 0;
     min-height: 200px;
+  }
+  .mark-display.ink {
+    background: var(--ink);
   }
   .mark-display.off-white {
     background: var(--off-white);
@@ -208,19 +216,19 @@
   .mark-caption {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
     margin-top: 0.5rem;
   }
 
   .motif {
-    background: #14141600;
-    border: 0.5px solid var(--hairline-dark);
+    background: var(--white);
+    border: 0.5px solid var(--hairline-light);
     padding: 2rem;
     margin: 1rem 0;
   }
   .racing-number-demo {
-    background: var(--ink);
-    border: 0.5px solid var(--hairline-dark);
+    background: var(--white);
+    border: 0.5px solid var(--hairline-light);
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
@@ -235,7 +243,7 @@
     font-size: 360px;
     line-height: 0.85;
     letter-spacing: -0.05em;
-    color: var(--red-muted);
+    color: var(--red-recede-on-light);
   }
   .racing-number-demo .word {
     position: relative;
@@ -246,6 +254,22 @@
     letter-spacing: -0.045em;
     line-height: 1;
     margin-top: 4rem;
+    color: var(--black);
+  }
+  .racing-number-demo.dark {
+    background: var(--ink);
+  }
+  .racing-number-demo.dark .number {
+    color: var(--red-recede-on-dark);
+  }
+  .racing-number-demo.dark .word {
+    color: var(--text-on-dark);
+  }
+  .racing-number-demo.dark .eyebrow {
+    color: var(--text-on-dark);
+  }
+  .racing-number-demo.dark .mono {
+    color: var(--text-on-dark-secondary);
   }
 
   .red-bleed-demo {
@@ -266,6 +290,7 @@
     letter-spacing: -0.04em;
     line-height: 1;
     margin-bottom: 1rem;
+    color: var(--text-on-red);
   }
 
   .lexicon-grid {
@@ -286,26 +311,27 @@
   }
   .lexicon li {
     padding: 0.5rem 0;
-    border-bottom: 0.5px solid var(--hairline-dark);
+    border-bottom: 0.5px solid var(--hairline-light);
     font-size: 14px;
+    color: var(--charcoal);
   }
 
   footer {
     padding: 3rem 0 1rem;
     margin-top: 4rem;
-    border-top: 0.5px solid var(--hairline-dark);
+    border-top: 0.5px solid var(--hairline-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
   }
   footer .nbc-mark {
     font-family: var(--font-display);
     font-weight: 900;
     font-size: 14px;
-    color: var(--text-on-dark);
+    color: var(--black);
     letter-spacing: -0.04em;
   }
   footer .nbc-mark::after {
@@ -321,14 +347,15 @@
 
   .slide-mockup {
     aspect-ratio: 16/9;
-    border: 0.5px solid var(--hairline-dark);
+    border: 0.5px solid var(--hairline-light);
     padding: 2rem;
     margin: 1rem 0 2rem;
     position: relative;
     overflow: hidden;
   }
-  .slide-mockup.ink { background: var(--ink); color: var(--text-on-dark); }
-  .slide-mockup.red { background: var(--red); color: var(--text-on-red); }
+  .slide-mockup.white { background: var(--white); color: var(--charcoal); }
+  .slide-mockup.ink { background: var(--ink); color: var(--text-on-dark); border-color: var(--hairline-dark); }
+  .slide-mockup.red { background: var(--red); color: var(--text-on-red); border-color: var(--red); }
   .slide-mockup .slide-eyebrow {
     font-family: var(--font-body);
     font-weight: 500;
@@ -355,12 +382,15 @@
     line-height: 0.95;
     letter-spacing: -0.04em;
   }
+  .slide-mockup.white .slide-headline { color: var(--black); }
+  .slide-mockup.ink .slide-headline { color: var(--text-on-dark); }
   .slide-mockup .slide-mono-cap {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--text-on-dark-secondary);
+    color: var(--muted);
     margin-top: 1rem;
   }
+  .slide-mockup.ink .slide-mono-cap { color: var(--text-on-dark-secondary); }
   .slide-mockup.red .slide-mono-cap { color: var(--text-on-red); opacity: 0.85; }
 
   @media (max-width: 700px) {
@@ -382,7 +412,7 @@
     <div class="eyebrow">NICK BANKS CONSULTING / BRAND REFERENCE</div>
     <h1>Strategy with a pulse.</h1>
     <p class="lede">Practical leadership support for organizations doing work that matters. This document is the visual and editorial reference for the brand.</p>
-    <p class="mono">// version 1.0 - the dark/graphic direction with monospace labels</p>
+    <p class="mono">// version 1.1.0 - white-led with ink contrast variant, opacity-based racing numbers</p>
   </header>
 
   <section>
@@ -429,13 +459,17 @@
   <section>
     <div class="eyebrow">SECTION 02 / COLOR</div>
     <h2>The palette.</h2>
-    <p>Ink is the surface for everything digital. Off-white is for documents only. Red is punctuation, never paint, except for one designated full-bleed surface per artifact (typically the closing slide).</p>
+    <p>White is the default surface for everything digital. Ink is the contrast variant - used for decks projected in dim rooms or accent sections within a light-led page. Off-white is for documents only. Red is punctuation, never paint, except for one designated full-bleed surface per artifact (typically the closing slide).</p>
 
     <h3>Surfaces</h3>
     <div class="swatch-grid">
       <div class="swatch">
-        <div class="swatch-color" style="background: #0E0E0F; border-bottom: 0.5px solid #2A2A2A;"></div>
-        <div class="swatch-info"><div class="swatch-name">Ink (default, all digital)</div>#0E0E0F</div>
+        <div class="swatch-color" style="background: #FFFFFF; border-bottom: 0.5px solid #BDB8AC;"></div>
+        <div class="swatch-info"><div class="swatch-name">White (default, all digital)</div>#FFFFFF</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0E0E0F;"></div>
+        <div class="swatch-info"><div class="swatch-name">Ink (contrast variant)</div>#0E0E0F</div>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: #F5F1E8;"></div>
@@ -454,21 +488,39 @@
         <div class="swatch-info"><div class="swatch-name">Red</div>#D9352A</div>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: #5C2118;"></div>
-        <div class="swatch-info"><div class="swatch-name">Red muted</div>#5C2118</div>
+        <div class="swatch-color" style="background: rgba(217, 53, 42, 0.35); border-bottom: 0.5px solid #BDB8AC;"></div>
+        <div class="swatch-info"><div class="swatch-name">Red recede on light (35%)</div>rgba(217,53,42,0.35)</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0E0E0F; position: relative;">
+          <div style="position: absolute; inset: 0; background: rgba(217, 53, 42, 0.25);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Red recede on dark (25%)</div>rgba(217,53,42,0.25)</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #BDB8AC;"></div>
+        <div class="swatch-info"><div class="swatch-name">Hairline (on light)</div>#BDB8AC</div>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: #2A2A2A;"></div>
         <div class="swatch-info"><div class="swatch-name">Hairline (on ink)</div>#2A2A2A</div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: #BDB8AC;"></div>
-        <div class="swatch-info"><div class="swatch-name">Hairline (on off-white)</div>#BDB8AC</div>
-      </div>
     </div>
 
     <h3>Text colors</h3>
     <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #0A0A0A;"></div>
+        <div class="swatch-info"><div class="swatch-name">Primary on light</div>#0A0A0A</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1C1B19;"></div>
+        <div class="swatch-info"><div class="swatch-name">Body on light</div>#1C1B19</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #5C5A53;"></div>
+        <div class="swatch-info"><div class="swatch-name">Muted on light</div>#5C5A53</div>
+      </div>
       <div class="swatch">
         <div class="swatch-color" style="background: #F2F1ED;"></div>
         <div class="swatch-info"><div class="swatch-name">Primary on dark</div>#F2F1ED</div>
@@ -476,14 +528,6 @@
       <div class="swatch">
         <div class="swatch-color" style="background: #B8B5AB;"></div>
         <div class="swatch-info"><div class="swatch-name">Secondary on dark</div>#B8B5AB</div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: #1C1B19;"></div>
-        <div class="swatch-info"><div class="swatch-name">Body on off-white</div>#1C1B19</div>
-      </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background: #5C5A53;"></div>
-        <div class="swatch-info"><div class="swatch-name">Muted on off-white</div>#5C5A53</div>
       </div>
     </div>
   </section>
@@ -522,29 +566,29 @@
   <section>
     <div class="eyebrow">SECTION 04 / LOGO SYSTEM</div>
     <h2>Four marks.</h2>
-    <p>The wordmark is "Nick Banks" in Inter Black with a red dot followed by "CONSULTING" in Inter Medium uppercase below. The dot is part of the system, not optional.</p>
+    <p>The wordmark is "Nick Banks" in Inter Black with a red dot followed by "CONSULTING" in Inter Medium uppercase below. The dot is part of the system, not optional. Light variants are the default; dark variants are used on ink contrast surfaces.</p>
 
     <h3>Primary wordmark</h3>
     <div class="mark-grid">
       <div>
         <div class="mark-display">
           <svg viewBox="0 0 690 200" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="120" font-family="Inter, sans-serif" font-weight="900" font-size="128" letter-spacing="-5.4" fill="#F2F1ED">Nick Banks</text>
-            <circle cx="9" cy="170" r="8.5" fill="#D9352A"/>
-            <text x="27" y="178" font-family="Inter, sans-serif" font-weight="500" font-size="22" letter-spacing="5.5" fill="#F2F1ED">CONSULTING</text>
-          </svg>
-        </div>
-        <div class="mark-caption">// nbc-wordmark-dark.svg - on ink (default)</div>
-      </div>
-      <div>
-        <div class="mark-display off-white">
-          <svg viewBox="0 0 690 200" xmlns="http://www.w3.org/2000/svg">
             <text x="0" y="120" font-family="Inter, sans-serif" font-weight="900" font-size="128" letter-spacing="-5.4" fill="#0A0A0A">Nick Banks</text>
             <circle cx="9" cy="170" r="8.5" fill="#D9352A"/>
             <text x="27" y="178" font-family="Inter, sans-serif" font-weight="500" font-size="22" letter-spacing="5.5" fill="#1C1B19">CONSULTING</text>
           </svg>
         </div>
-        <div class="mark-caption">// nbc-wordmark.svg - on off-white documents only</div>
+        <div class="mark-caption">// nbc-wordmark.svg - light variant, the default for white and off-white surfaces</div>
+      </div>
+      <div>
+        <div class="mark-display ink">
+          <svg viewBox="0 0 690 200" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="120" font-family="Inter, sans-serif" font-weight="900" font-size="128" letter-spacing="-5.4" fill="#F2F1ED">Nick Banks</text>
+            <circle cx="9" cy="170" r="8.5" fill="#D9352A"/>
+            <text x="27" y="178" font-family="Inter, sans-serif" font-weight="500" font-size="22" letter-spacing="5.5" fill="#F2F1ED">CONSULTING</text>
+          </svg>
+        </div>
+        <div class="mark-caption">// nbc-wordmark-dark.svg - dark variant for ink contrast surfaces</div>
       </div>
     </div>
 
@@ -553,18 +597,6 @@
       <div>
         <div class="mark-display">
           <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" width="100" height="100" fill="#F2F1ED"/>
-            <text x="50" y="63" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="42" letter-spacing="-1.5" fill="#0A0A0A">NB</text>
-            <text x="124" y="55" font-family="Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="-1.9" fill="#F2F1ED">Nick Banks</text>
-            <circle cx="128" cy="78" r="4.5" fill="#D9352A"/>
-            <text x="142" y="82" font-family="Inter, sans-serif" font-weight="500" font-size="13" letter-spacing="3" fill="#F2F1ED">CONSULTING</text>
-          </svg>
-        </div>
-        <div class="mark-caption">// nbc-lockup-dark.svg</div>
-      </div>
-      <div>
-        <div class="mark-display off-white">
-          <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
             <rect x="0" y="0" width="100" height="100" fill="#0A0A0A"/>
             <text x="50" y="63" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="42" letter-spacing="-1.5" fill="#F5F1E8">NB</text>
             <text x="124" y="55" font-family="Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="-1.9" fill="#0A0A0A">Nick Banks</text>
@@ -572,7 +604,19 @@
             <text x="142" y="82" font-family="Inter, sans-serif" font-weight="500" font-size="13" letter-spacing="3" fill="#1C1B19">CONSULTING</text>
           </svg>
         </div>
-        <div class="mark-caption">// nbc-lockup.svg</div>
+        <div class="mark-caption">// nbc-lockup.svg - light variant (default)</div>
+      </div>
+      <div>
+        <div class="mark-display ink">
+          <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="100" height="100" fill="#F2F1ED"/>
+            <text x="50" y="63" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="42" letter-spacing="-1.5" fill="#0A0A0A">NB</text>
+            <text x="124" y="55" font-family="Inter, sans-serif" font-weight="900" font-size="48" letter-spacing="-1.9" fill="#F2F1ED">Nick Banks</text>
+            <circle cx="128" cy="78" r="4.5" fill="#D9352A"/>
+            <text x="142" y="82" font-family="Inter, sans-serif" font-weight="500" font-size="13" letter-spacing="3" fill="#F2F1ED">CONSULTING</text>
+          </svg>
+        </div>
+        <div class="mark-caption">// nbc-lockup-dark.svg - dark variant for ink surfaces</div>
       </div>
     </div>
 
@@ -581,11 +625,11 @@
       <div>
         <div class="mark-display">
           <svg viewBox="0 0 165 80" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="58" font-family="Inter, sans-serif" font-weight="900" font-size="64" letter-spacing="-2.5" fill="#F2F1ED">NBC</text>
+            <text x="0" y="58" font-family="Inter, sans-serif" font-weight="900" font-size="64" letter-spacing="-2.5" fill="#0A0A0A">NBC</text>
             <circle cx="146" cy="54" r="5.5" fill="#D9352A"/>
           </svg>
         </div>
-        <div class="mark-caption">// nbc-short-mark - footers, signatures</div>
+        <div class="mark-caption">// nbc-short-mark - footers, signatures (light variant on white)</div>
       </div>
       <div>
         <div class="mark-display">
@@ -608,13 +652,24 @@
     <p class="muted">The brand fingerprint. Lives next to "CONSULTING" on the wordmark, before eyebrow labels on slides, and as a divider in select contexts.</p>
 
     <h3>Racing numbers</h3>
-    <p class="muted">On section break slides, the section number appears as an oversized character in muted red, sitting partially behind the headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge.</p>
+    <p class="muted">On section break slides, the section number appears as an oversized character in brand red at reduced opacity (35% on light, 25% on dark), sitting partially behind the headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge.</p>
     <div class="racing-number-demo">
       <div class="eyebrow">SECTION</div>
       <div class="number">02</div>
       <div class="word">Why</div>
       <div class="mono" style="margin-top: 1.5rem; position: relative; z-index: 1;">// the part where we ask better questions</div>
     </div>
+    <div class="mark-caption">// light surface (default) - brand red at 35% opacity</div>
+
+    <h3 style="margin-top: 2.5rem;">Contrast variant - ink</h3>
+    <p class="muted">Same motif on the dark contrast surface. The brand red drops to 25% opacity to recede correctly against ink.</p>
+    <div class="racing-number-demo dark">
+      <div class="eyebrow">SECTION</div>
+      <div class="number">02</div>
+      <div class="word">Why</div>
+      <div class="mono" style="margin-top: 1.5rem; position: relative; z-index: 1;">// the part where we ask better questions</div>
+    </div>
+    <div class="mark-caption">// ink contrast variant - brand red at 25% opacity</div>
 
     <h3>Monospace comments</h3>
     <p class="muted">JetBrains Mono labels in red appear as inline column headers, captions under section headlines, and small annotations. They look like code comments. They signal AI-fluency without bragging.</p>
@@ -644,14 +699,21 @@
   <section>
     <div class="eyebrow">SECTION 06 / SLIDE LAYOUTS</div>
     <h2>The deck system.</h2>
-    <p>Eight slide compositions cover most decks. Documented in design-system.json under slideTypes.</p>
+    <p>Eight slide compositions cover most decks. Documented in design-system.json under slideTypes. White is the default; ink is the contrast variant for projection in dim rooms.</p>
+
+    <div class="slide-mockup white">
+      <div class="slide-eyebrow">NICK BANKS CONSULTING</div>
+      <div class="slide-headline" style="font-size: 56px; margin-top: 3rem;">Strategy with a pulse.</div>
+      <div class="slide-mono-cap" style="position: absolute; bottom: 2rem;">// fresh, current, ai-fluent. grounded, human, useful.</div>
+    </div>
+    <div class="mark-caption">// cover slide (default - white)</div>
 
     <div class="slide-mockup ink">
       <div class="slide-eyebrow">NICK BANKS CONSULTING</div>
       <div class="slide-headline" style="font-size: 56px; margin-top: 3rem;">Strategy with a pulse.</div>
       <div class="slide-mono-cap" style="position: absolute; bottom: 2rem;">// fresh, current, ai-fluent. grounded, human, useful.</div>
     </div>
-    <div class="mark-caption">// cover slide</div>
+    <div class="mark-caption">// cover slide (contrast variant - ink, for projection in dim rooms)</div>
 
     <div class="slide-mockup red">
       <div class="slide-eyebrow">END</div>
@@ -664,12 +726,12 @@
   <section>
     <div class="eyebrow">SECTION 07 / WHAT THIS IS NOT</div>
     <h2>To stay honest.</h2>
-    <p>This brand is not a serif/literary brand. Not a warm cream-led editorial brand (earlier explorations used cream as a secondary surface; that direction is no longer part of the brand). Not a corporate consultancy aesthetic (no chevrons, drop shadows, stock people-laughing-around-laptops). Not a startup SaaS aesthetic (no purple gradients, glass-morphism, AI swoosh graphics). Not a coach/personal-development aesthetic (no soft pastels, no "unlock your potential" register).</p>
+    <p>This brand is not a serif/literary brand. Not a warm cream-led editorial brand (earlier explorations used cream as a primary surface; the brand now uses pure white as default with off-white reserved for documents). Not a dark-led brand (earlier explorations defaulted to ink; the brand now defaults light with dark as a deliberate contrast variant). Not a corporate consultancy aesthetic (no chevrons, drop shadows, stock people-laughing-around-laptops). Not a startup SaaS aesthetic (no purple gradients, glass-morphism, AI swoosh graphics). Not a coach/personal-development aesthetic (no soft pastels, no "unlock your potential" register).</p>
   </section>
 
   <footer>
     <div class="nbc-mark">NBC</div>
-    <div>v1.0.0 / 2026</div>
+    <div>v1.1.0 / 2026</div>
   </footer>
 
 </div>

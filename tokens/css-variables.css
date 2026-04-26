@@ -4,16 +4,18 @@
  */
 
 :root {
-  /* Surfaces - the brand defaults to ink. Off-white is the document-only light surface. */
+  /* Surfaces - the brand defaults to white. Ink is the contrast variant.
+     Off-white is the document-only light surface. */
+  --nbc-white: #FFFFFF;
   --nbc-ink: #0E0E0F;
   --nbc-off-white: #F5F1E8;
 
-  /* Text on light surfaces (documents) */
+  /* Text on light surfaces (white and off-white) */
   --nbc-text-primary-light: #0A0A0A;
   --nbc-text-body-light: #1C1B19;
   --nbc-text-muted-light: #5C5A53;
 
-  /* Text on dark surfaces (default) */
+  /* Text on dark surfaces (ink contrast variant) */
   --nbc-text-primary-dark: #F2F1ED;
   --nbc-text-secondary-dark: #B8B5AB;
 
@@ -22,7 +24,12 @@
 
   /* Accents */
   --nbc-red: #D9352A;
-  --nbc-red-muted: #5C2118;
+
+  /* Recede - brand red at reduced opacity, calibrated per surface.
+     Used for the racing number motif. Same red as everywhere else,
+     not a separate muted token. */
+  --nbc-red-recede-on-light: rgba(217, 53, 42, 0.35);
+  --nbc-red-recede-on-dark: rgba(217, 53, 42, 0.25);
 
   /* Hairlines */
   --nbc-hairline-dark: #2A2A2A;

@@ -1,23 +1,29 @@
-/* NBC demo site
+/* NBC demo site - v1.1.0
  * Brand system applied to a working web page.
+ * White-led with ink contrast variant; opacity-based racing numbers.
  * Token source: ../../tokens/css-variables.css
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
+  --nbc-white: #FFFFFF;
   --nbc-ink: #0E0E0F;
-  --nbc-ink-elevated: #14141600;
-  --nbc-ink-card: #1A1A1C;
   --nbc-off-white: #F5F1E8;
+
+  --nbc-text-primary-light: #0A0A0A;
+  --nbc-text-body-light: #1C1B19;
+  --nbc-text-muted-light: #5C5A53;
 
   --nbc-text-primary-dark: #F2F1ED;
   --nbc-text-secondary-dark: #B8B5AB;
   --nbc-text-on-red: #FCEEEC;
 
   --nbc-red: #D9352A;
-  --nbc-red-muted: #5C2118;
+  --nbc-red-recede-on-light: rgba(217, 53, 42, 0.35);
+  --nbc-red-recede-on-dark: rgba(217, 53, 42, 0.25);
 
+  --nbc-hairline-light: #BDB8AC;
   --nbc-hairline-dark: #2A2A2A;
   --nbc-hairline-on-red: rgba(255, 255, 255, 0.3);
 
@@ -53,8 +59,8 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  background: var(--nbc-ink);
-  color: var(--nbc-text-primary-dark);
+  background: var(--nbc-white);
+  color: var(--nbc-text-body-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -79,6 +85,7 @@ h4 {
   font-weight: 900;
   letter-spacing: var(--nbc-tracking-display);
   line-height: 0.95;
+  color: var(--nbc-text-primary-light);
 }
 
 a {
@@ -106,7 +113,7 @@ a {
   font-size: 11px;
   letter-spacing: var(--nbc-tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--nbc-text-primary-dark);
+  color: var(--nbc-text-body-light);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -127,7 +134,7 @@ a {
   font-weight: 400;
   font-size: 12px;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
 }
 
 .mono-label {
@@ -138,30 +145,24 @@ a {
   color: var(--nbc-red);
 }
 
-.hairline {
-  border: 0;
-  border-top: 0.5px solid var(--nbc-hairline-dark);
-  margin: 0;
-}
-
 /* ---------- header ---------- */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(14, 14, 15, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: saturate(140%) blur(8px);
   -webkit-backdrop-filter: saturate(140%) blur(8px);
-  border-bottom: 0.5px solid var(--nbc-hairline-dark);
+  border-bottom: 0.5px solid var(--nbc-hairline-light);
 }
 
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1.1rem;
-  padding-bottom: 1.1rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
   gap: 2rem;
 }
 
@@ -171,8 +172,15 @@ a {
 }
 
 .site-header__mark img {
-  height: 28px;
+  height: 60px;
   width: auto;
+  overflow: visible;
+}
+
+@media (max-width: 720px) {
+  .site-header__mark img {
+    height: 44px;
+  }
 }
 
 .site-nav {
@@ -185,12 +193,12 @@ a {
   font-family: var(--nbc-font-mono);
   font-size: 12px;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
   transition: color 120ms ease;
 }
 
 .site-nav a:hover {
-  color: var(--nbc-text-primary-dark);
+  color: var(--nbc-text-primary-light);
 }
 
 .site-nav__cta {
@@ -224,7 +232,7 @@ a {
 }
 
 .hero__date {
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
 }
 
 .hero__headline {
@@ -232,13 +240,14 @@ a {
   letter-spacing: var(--nbc-tracking-display-tight);
   max-width: 13ch;
   margin-bottom: 2rem;
+  color: var(--nbc-text-primary-light);
 }
 
 .hero__subtitle {
   font-size: clamp(1.05rem, 1.6vw, 1.35rem);
   line-height: 1.45;
   max-width: 38ch;
-  color: var(--nbc-text-primary-dark);
+  color: var(--nbc-text-body-light);
   margin-bottom: 3rem;
 }
 
@@ -260,10 +269,15 @@ section.section {
   margin-bottom: 2.25rem;
 }
 
-/* ---------- manifesto ---------- */
+/* ---------- manifesto (INK contrast variant) ---------- */
 
 .manifesto {
-  border-top: 0.5px solid var(--nbc-hairline-dark);
+  background: var(--nbc-ink);
+  color: var(--nbc-text-primary-dark);
+}
+
+.manifesto .eyebrow {
+  color: var(--nbc-text-primary-dark);
 }
 
 .manifesto__headline {
@@ -272,6 +286,7 @@ section.section {
   letter-spacing: -0.025em;
   max-width: 30ch;
   margin-bottom: 4rem;
+  color: var(--nbc-text-primary-dark);
 }
 
 .manifesto__columns {
@@ -293,6 +308,14 @@ section.section {
   max-width: 38ch;
 }
 
+.manifesto__variant-note {
+  font-family: var(--nbc-font-mono);
+  font-size: 11px;
+  letter-spacing: var(--nbc-tracking-mono);
+  color: var(--nbc-text-secondary-dark);
+  margin-top: 3rem;
+}
+
 @media (max-width: 720px) {
   .manifesto__columns {
     grid-template-columns: 1fr;
@@ -300,14 +323,15 @@ section.section {
   }
 }
 
-/* ---------- section break ---------- */
+/* ---------- section break (LIGHT default) ---------- */
 
 .sb {
   padding-top: clamp(7rem, 14vw, 12rem);
   padding-bottom: clamp(5rem, 10vw, 8rem);
   position: relative;
   overflow: hidden;
-  border-top: 0.5px solid var(--nbc-hairline-dark);
+  border-top: 0.5px solid var(--nbc-hairline-light);
+  background: var(--nbc-white);
 }
 
 .sb__inner {
@@ -324,7 +348,7 @@ section.section {
   font-size: clamp(14rem, 28vw, 26rem);
   line-height: 0.85;
   letter-spacing: -0.06em;
-  color: var(--nbc-red-muted);
+  color: var(--nbc-red-recede-on-light);
   z-index: 1;
   pointer-events: none;
   user-select: none;
@@ -337,6 +361,7 @@ section.section {
   letter-spacing: -0.05em;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  color: var(--nbc-text-primary-light);
 }
 
 .sb__caption {
@@ -345,16 +370,15 @@ section.section {
   font-family: var(--nbc-font-mono);
   font-size: 13px;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
   max-width: 50ch;
 }
 
-.sb__caption::before {
-  content: "";
-  display: inline-block;
-}
-
 /* ---------- four pillars ---------- */
+
+.pillars {
+  background: var(--nbc-white);
+}
 
 .pillars__head {
   display: flex;
@@ -394,12 +418,13 @@ section.section {
   font-size: 1.6rem;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  color: var(--nbc-text-primary-light);
 }
 
 .pillar__body {
   font-size: 0.95rem;
   line-height: 1.55;
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
 }
 
 @media (max-width: 960px) {
@@ -420,6 +445,10 @@ section.section {
 }
 
 /* ---------- recent work cards ---------- */
+
+.work {
+  background: var(--nbc-white);
+}
 
 .work__head {
   display: flex;
@@ -443,18 +472,18 @@ section.section {
 
 .card {
   border-top: 1.2px solid var(--nbc-red);
-  border-left: 0.5px solid var(--nbc-hairline-dark);
-  border-right: 0.5px solid var(--nbc-hairline-dark);
-  border-bottom: 0.5px solid var(--nbc-hairline-dark);
+  border-left: 0.5px solid var(--nbc-hairline-light);
+  border-right: 0.5px solid var(--nbc-hairline-light);
+  border-bottom: 0.5px solid var(--nbc-hairline-light);
   padding: 1.75rem 1.75rem 2rem;
-  background: var(--nbc-ink);
+  background: var(--nbc-white);
   transition: border-color 200ms ease, transform 200ms ease;
 }
 
 .card:hover {
-  border-left-color: #3a3a3a;
-  border-right-color: #3a3a3a;
-  border-bottom-color: #3a3a3a;
+  border-left-color: #8a8578;
+  border-right-color: #8a8578;
+  border-bottom-color: #8a8578;
   transform: translateY(-2px);
 }
 
@@ -466,12 +495,13 @@ section.section {
   font-size: 1.35rem;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  color: var(--nbc-text-primary-light);
 }
 
 .card__body {
   font-size: 0.95rem;
   line-height: 1.55;
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
   margin-bottom: 1.75rem;
 }
 
@@ -479,8 +509,8 @@ section.section {
   font-family: var(--nbc-font-mono);
   font-size: 11px;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
-  border-top: 0.5px solid var(--nbc-hairline-dark);
+  color: var(--nbc-text-muted-light);
+  border-top: 0.5px solid var(--nbc-hairline-light);
   padding-top: 1rem;
   display: flex;
   justify-content: space-between;
@@ -494,6 +524,10 @@ section.section {
 }
 
 /* ---------- process ---------- */
+
+.process {
+  background: var(--nbc-white);
+}
 
 .process__head {
   display: flex;
@@ -513,7 +547,7 @@ section.section {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 0.5px solid var(--nbc-hairline-dark);
+  border-top: 0.5px solid var(--nbc-hairline-light);
 }
 
 .process__row {
@@ -522,7 +556,7 @@ section.section {
   align-items: baseline;
   gap: 2rem;
   padding: 2rem 0;
-  border-bottom: 0.5px solid var(--nbc-hairline-dark);
+  border-bottom: 0.5px solid var(--nbc-hairline-light);
 }
 
 .process__num {
@@ -535,13 +569,14 @@ section.section {
 .process__step-title {
   font-size: clamp(1.25rem, 2vw, 1.6rem);
   letter-spacing: -0.02em;
+  color: var(--nbc-text-primary-light);
 }
 
 .process__annotation {
   font-family: var(--nbc-font-mono);
   font-size: 12px;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
   text-align: right;
   max-width: 32ch;
 }
@@ -613,10 +648,10 @@ section.section {
 /* ---------- footer ---------- */
 
 .site-footer {
-  background: var(--nbc-ink);
+  background: var(--nbc-white);
   padding-top: 2rem;
   padding-bottom: 2.5rem;
-  border-top: 0.5px solid var(--nbc-hairline-dark);
+  border-top: 0.5px solid var(--nbc-hairline-light);
 }
 
 .site-footer__inner {
@@ -633,7 +668,7 @@ section.section {
   font-family: var(--nbc-font-display);
   font-weight: 900;
   font-size: 11pt;
-  color: var(--nbc-text-primary-dark);
+  color: var(--nbc-text-primary-light);
   letter-spacing: -0.02em;
 }
 
@@ -650,7 +685,7 @@ section.section {
   font-family: var(--nbc-font-mono);
   font-size: 9pt;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
   text-align: center;
 }
 
@@ -658,7 +693,7 @@ section.section {
   font-family: var(--nbc-font-mono);
   font-size: 9pt;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-secondary-dark);
+  color: var(--nbc-text-muted-light);
 }
 
 @media (max-width: 600px) {

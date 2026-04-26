@@ -32,13 +32,13 @@ Headlines are sentence case with a period: "Make the important work clearer." No
 
 ### Surface
 
-The brand defaults dark. Ink black `#0E0E0F` is the surface for every digital application: decks, the website, social cards, anything on a screen.
+The brand defaults light. White (`#FFFFFF`) is the surface for every digital application: the website, decks shown on screen, social cards, anything on a screen.
 
-Red `#D9352A` becomes a full-bleed surface for one designated moment per artifact (typically the closing slide or hero CTA).
+Ink (`#0E0E0F`) is the contrast variant. Used deliberately when a surface calls for the dark treatment: decks projected in dim rooms, accent sections within a light-led page, artifacts where the audience or context warrants high contrast.
 
-Off-white `#F5F1E8` is the document-only surface for proposals, contracts, and letterhead. It exists because documents are read on paper or in PDF readers, where dark surfaces print poorly. Off-white is never used on digital surfaces.
+Red (`#D9352A`) becomes a full-bleed surface for one designated moment per artifact (typically the closing slide or hero CTA).
 
-There is no warm cream secondary surface. Earlier explorations used cream as an editorial second surface; that direction is no longer part of the brand.
+Off-white (`#F5F1E8`) is the document-only surface for proposals, contracts, and letterhead. It exists because documents are read on paper or in PDF readers where pure white can read harsh. Off-white is never used on digital surfaces.
 
 ### Type
 
@@ -57,11 +57,12 @@ Display headlines are tight (-0.04em letter-spacing). Eyebrow labels are wide an
 The wordmark is "Nick Banks" in Inter Black with a red dot followed by "CONSULTING" in Inter Medium uppercase below. The dot is part of the system, not optional.
 
 Four marks live in the system:
-- **Primary wordmark** (`logos/nbc-wordmark-dark.svg`) - default for ink surfaces. Use the light variant only on off-white documents.
-- **Lockup** (`logos/nbc-lockup-dark.svg`) - black NB block beside the wordmark, for letterhead and contexts wanting more presence
-- **Short mark** (`logos/nbc-short-mark-dark.svg`) - "NBC" with red dot tight to the C, for footers and signatures
-- Monogram (logos/nbc-monogram.svg) - square NB on black block, for favicons and tight square spaces. Universal mark - works on both ink and off-white surfaces because the block is part of the design.
-Dark variants of the wordmark, lockup, and short mark are the default (for ink surfaces). Light variants are only used on off-white document surfaces. The monogram has no separate variant - it works everywhere as-is.
+- **Primary wordmark** (`logos/nbc-wordmark.svg`) - the light variant, default for white and off-white surfaces. The dark variant (`nbc-wordmark-dark.svg`) is used on ink contrast surfaces.
+- **Lockup** (`logos/nbc-lockup.svg`) - light variant default; dark variant for ink surfaces. Black NB block beside the wordmark, for letterhead and contexts wanting more presence.
+- **Short mark** (`logos/nbc-short-mark.svg`) - light variant default; dark variant for ink surfaces. "NBC" with red dot tight to the C, for footers and signatures.
+- **Monogram** (`logos/nbc-monogram.svg`) - square NB on black block, for favicons and tight square spaces. Universal mark - works on white, off-white, and ink because the block is part of the design.
+
+Light variants are the default (for white and off-white surfaces). Dark variants are used on ink contrast surfaces. The monogram has no separate variant - it works everywhere as-is.
 
 ### Motifs
 
@@ -69,7 +70,7 @@ The brand has four signature graphic moves. Use all of them. They're what makes 
 
 **The red dot.** A small red circle next to "CONSULTING" on the wordmark, before eyebrow labels on slides, and as a divider in select contexts. The brand fingerprint.
 
-**Racing numbers.** On section break slides, the section number ("01", "02", etc.) appears as an oversized character in muted red `#5C2118`, sitting partially behind or beside the headline word. Inspired by racing numbers on rally cars. The number can bleed off the right edge; the cropping is intentional.
+**Racing numbers.** On section break slides, the section number ("01", "02", etc.) appears as an oversized character in brand red at reduced opacity (35% on light surfaces, 25% on dark surfaces). The same red as everywhere else in the system, just calibrated to recede on each surface type. Inspired by racing numbers on rally cars. The number can bleed off the right edge of the surface; cropping is intentional.
 
 **Monospace comments.** JetBrains Mono labels in red appear as inline column headers (`// what we do`, `// the tools`), as captions under section headlines (`// the part where we ask better questions`), and as small annotations. They look like code comments. They signal AI-fluency without bragging.
 
@@ -83,7 +84,7 @@ Type does the work. Graphics support, never lead. One bold move per surface, wit
 
 ### Decks
 
-16:9 format. Ink-led. Section breaks use racing numbers. Working slides use eyebrow + headline + body. The closing slide is red full-bleed.
+16:9 format. White-led by default. Use the ink variant for decks projected in dim rooms or contexts that call for high contrast. Section breaks use racing numbers. Working slides use eyebrow + headline + body. The closing slide is red full-bleed.
 
 Standard slides in the system:
 1. Cover (oversized headline + mono caption)
@@ -98,9 +99,9 @@ Standard slides in the system:
 
 ### Website
 
-`nickbanksconsulting.com` will move to ink-led. Inter for everything visible. JetBrains Mono for accent labels.
+`nickbanksconsulting.com` is white-led. Inter for everything visible. JetBrains Mono for accent labels.
 
-For nested surfaces or contrast moments within an ink-led page, use slight tonal variations of dark (e.g., `#1A1A1C`, or transparent overlays with hairline borders) rather than introducing off-white. Off-white is only for documents.
+Use ink (`#0E0E0F`) sections sparingly within the white-led page for emphasis - one or two contrast moments per page, not every block. Off-white is not used on web; off-white is only for documents.
 
 ### Documents
 
@@ -114,20 +115,21 @@ Workshop materials match the client's brand, not NBC's.
 
 ### Social
 
-Ink-led, type-driven. LinkedIn banner uses the lockup. Post images use the racing number system or the red full-bleed treatment.
+White-led by default, type-driven. The ink variant is used for high-impact moments. LinkedIn banner uses the lockup. Post images use the racing number system or the red full-bleed treatment.
 
 ## What this brand is not
 
 To stay honest, here's what to avoid:
 
 - Not a serif/literary brand. The previous nickbanksconsulting.com used Playfair-style serifs; the new system replaces those.
-- Not a warm cream-led editorial brand. Earlier explorations used cream as a secondary surface; that direction is no longer part of the brand.
+- Not a warm cream-led editorial brand. Earlier explorations used cream as a primary surface; the brand now uses pure white as default with off-white reserved for documents.
+- Not a dark-led brand. Earlier explorations defaulted to ink black; the brand now defaults light with dark as a deliberate contrast variant.
 - Not a corporate consultancy aesthetic. No chevrons, drop shadows, or stock people-laughing-at-laptops imagery.
 - Not a startup SaaS aesthetic. No purple gradients, glass-morphism, or AI swoosh graphics.
 - Not a coach/personal-development aesthetic. No soft pastels, no "unlock your potential" register.
 
 ## Versioning
 
-Current: v1.0.0 - the dark/graphic direction with monospace labels.
+Current: v1.1.0 - white-led with ink as the contrast variant; opacity-based racing number system replaces the separate red-muted token.
 
-Earlier explorations (cream-led editorial, charcoal-led with serif) are not the current brand and shouldn't be referenced.
+Earlier versions: v1.0.0 (dark/graphic direction with monospace labels). Earlier explorations (cream-led editorial, charcoal-led with serif) are not the current brand and shouldn't be referenced.

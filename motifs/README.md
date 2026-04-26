@@ -135,7 +135,7 @@ Oversized section markers in muted red. Inspired by racing numbers on rally cars
 
 **Spec**
 - Type: Inter Black 900
-- Color: `#5C2118` (red muted)
+- Color: Brand red `#D9352A` at reduced opacity. **35% on light surfaces, 25% on dark surfaces.** Use the CSS variable `--nbc-red-recede-on-light` or `--nbc-red-recede-on-dark` depending on the surface.
 - Size scales with canvas:
   - Slide at 16:9 / 1920x1080: 200-280pt
   - Slide at 16:9 / 1280x720: 180-220pt
@@ -143,14 +143,15 @@ Oversized section markers in muted red. Inspired by racing numbers on rally cars
 - Tracking: -0.04em to -0.06em (very tight)
 - Position: right-aligned, may bleed past the right edge of the canvas
 - Z-index: behind the headline word, in front of the surface
-- Opacity: 100% (the muted red color is the depth, not transparency)
+
+The racing number uses the same brand red as the rest of the system, calibrated by opacity for the surface. There is no separate "muted red" token.
 
 **Composition with headline word**
-The racing number sits to the right; the headline word ("Why", "What", "How", "Now what") sits left at Inter Black 130pt. They overlap visually but the headline word is in front and uses the primary text color (`#F2F1ED`) so it reads cleanly.
+The racing number sits to the right; the headline word ("Why", "What", "How", "Now what") sits left at Inter Black 130pt. They overlap visually but the headline word is in front and uses the surface's primary text color (`#0A0A0A` on light, `#F2F1ED` on dark) so it reads cleanly.
 
-**Code (HTML/CSS)**
+**Code (HTML/CSS) - light surface (default)**
 ```html
-<div class="nbc-section-break">
+<div class="nbc-section-break nbc-section-break--light">
   <div class="nbc-eyebrow">SECTION</div>
   <div class="nbc-racing-number">02</div>
   <div class="nbc-section-headline">Why</div>
@@ -161,10 +162,19 @@ The racing number sits to the right; the headline word ("Why", "What", "How", "N
 ```css
 .nbc-section-break {
   position: relative;
-  background: #0E0E0F;
   padding: 3rem;
   overflow: hidden;
 }
+.nbc-section-break--light {
+  background: #FFFFFF;
+}
+.nbc-section-break--light .nbc-racing-number {
+  color: rgba(217, 53, 42, 0.35); /* --nbc-red-recede-on-light */
+}
+.nbc-section-break--light .nbc-section-headline {
+  color: #0A0A0A;
+}
+
 .nbc-racing-number {
   position: absolute;
   right: -2rem;
@@ -174,7 +184,6 @@ The racing number sits to the right; the headline word ("Why", "What", "How", "N
   font-size: 360px;
   line-height: 0.85;
   letter-spacing: -0.05em;
-  color: #5C2118;
   z-index: 1;
 }
 .nbc-section-headline {
@@ -186,18 +195,31 @@ The racing number sits to the right; the headline word ("Why", "What", "How", "N
   letter-spacing: -0.045em;
   line-height: 1;
   margin-top: 4rem;
+}
+```
+
+**Code (HTML/CSS) - dark contrast variant**
+```css
+.nbc-section-break--dark {
+  background: #0E0E0F;
+}
+.nbc-section-break--dark .nbc-racing-number {
+  color: rgba(217, 53, 42, 0.25); /* --nbc-red-recede-on-dark */
+}
+.nbc-section-break--dark .nbc-section-headline {
   color: #F2F1ED;
 }
 ```
 
 **For PowerPoint specifically**
-The visual ideal of "bleeds off the right edge" is hard to reproduce in PowerPoint without rasterizing the number. Acceptable compromise: render the number large but contained within the slide. Aim for 200-240pt at 10x5.625 inch slides, right-aligned in a text box that ends at the slide edge.
+The visual ideal of "bleeds off the right edge" is hard to reproduce in PowerPoint without rasterizing the number. Acceptable compromise: render the number large but contained within the slide. Aim for 200-240pt at 10x5.625 inch slides, right-aligned in a text box that ends at the slide edge. Apply the brand red (#D9352A) and set the text fill transparency to match the surface (35% on light, 25% on dark).
 
 **Don't**
-- Don't use the bright red `#D9352A`; the muted red is the point
+- Don't use a separate muted-red color; the system uses brand red with opacity
 - Don't center it; right-aligned with potential bleed
 - Don't add it to non-section-break slides
 - Don't let it compete with the headline word; the headline is the focus
+- Don't use the racing number opacity values for any other element. They're calibrated specifically for large-format type. Other elements use full-strength brand red.
 
 ---
 
