@@ -6,8 +6,6 @@
   'use strict';
 
   const stage = document.querySelector('.stage');
-  const counterEl = document.getElementById('slideCounter');
-  const tagEl = document.getElementById('deckTag');
 
   // All <section.slide> in document order. We filter to "active" (non-skip) at navigation time
   // so editing data-skip in HTML works without other code changes.
@@ -55,23 +53,49 @@
     if (slides.length === 0) return;
 
     index = Math.max(0, Math.min(index, slides.length - 1));
-    currentIndex = index;
+    const slideChanged = (index !== currentIndex);
 
-    // Reset all slides' active flag, then activate the current one
-    allSlides.forEach(s => s.classList.remove('is-active'));
-    const slide = slides[index];
-    slide.classList.add('is-active');
+    const apply = () => {
+      currentIndex = index;
 
-    // Resolve reveal step
-    const max = totalReveals(slide);
-    if (revealStep === undefined) revealStep = 0;
-    if (revealStep < 0) revealStep = 0;
-    if (revealStep > max) revealStep = max;
-    currentReveal = revealStep;
+      // Reset all slides' active flag, then activate the current one
+      allSlides.forEach(s => s.classList.remove('is-active'));
+      const slide = slides[index];
+      slide.classList.add('is-active');
 
-    applyRevealsForSlide(slide, currentReveal);
+      // Resolve reveal step
+      const max = totalReveals(slide);
+      if (revealStep === undefined) revealStep = 0;
+      if (revealStep < 0) revealStep = 0;
+      if (revealStep > max) revealStep = max;
+      currentReveal = revealStep;
 
-    updateCounter();
+      applyRevealsForSlide(slide, currentReveal);
+      updateBodyBackground(slide, currentReveal);
+
+      updateCounter();
+    };
+
+    // Use the View Transitions API for slide changes (Chrome/Edge/Safari).
+    // Falls through to instant cut on browsers without support.
+    if (slideChanged && !isPrintMode && document.startViewTransition) {
+      document.startViewTransition(apply);
+    } else {
+      apply();
+    }
+  }
+
+  function updateBodyBackground(slide, step) {
+    // Match body bg to active slide surface so letterbox bars in fullscreen
+    // visually disappear. Honor data-state-2-surface when state-changed.
+    let surface = slide.dataset.surface || 'white';
+    if (slide.dataset.state) {
+      const flipAt = parseInt(slide.dataset.stateChangeAt || '1', 10);
+      if (step >= flipAt && slide.dataset.state2Surface) {
+        surface = slide.dataset.state2Surface;
+      }
+    }
+    document.body.dataset.activeSurface = surface;
   }
 
   function applyRevealsForSlide(slide, step) {
@@ -83,11 +107,15 @@
       else r.classList.remove('is-visible');
     });
 
-    // Slide state machine: data-states="N" + data-reveals same N + the slide flips
-    // data-state to current step. Useful for two-state slides like guess-reveal.
+    // Slide state machine: binary state 1 → state 2.
+    // By default the flip happens at step 1 (one click = state 2).
+    // data-state-change-at="N" overrides — useful when intermediate reveals
+    // happen before the photo / state flip (e.g. slide 17).
     if (slide.dataset.state) {
-      const stateAt = step + 1; // step 0 = state 1, step 1 = state 2, etc.
-      slide.dataset.state = String(stateAt);
+      const flipAt = parseInt(slide.dataset.stateChangeAt || '1', 10);
+      slide.dataset.state = (step >= flipAt) ? '2' : '1';
+      // also re-sync body bg in case state flip changes surface
+      updateBodyBackground(slide, step);
     }
 
     // Photo fade-ins: data-photo-fade-at="N" become visible when step >= N
@@ -116,7 +144,9 @@
     const total = slides.length;
     const num = String(currentIndex + 1).padStart(2, '0');
     const tot = String(total).padStart(2, '0');
-    if (counterEl) counterEl.textContent = `${num} / ${tot}`;
+    document.querySelectorAll('.footer-num').forEach(el => {
+      el.textContent = `${num} / ${tot}`;
+    });
   }
 
   function next() {
@@ -224,8 +254,8 @@
   // Light click anywhere on the stage advances. Easier for laptop presenters.
   if (stage) {
     stage.addEventListener('click', (e) => {
-      // Ignore clicks on links / buttons
-      const interactive = e.target.closest('a, button, input, textarea');
+      // Ignore clicks on links / buttons / jump-cards
+      const interactive = e.target.closest('a, button, input, textarea, [data-jump-to]');
       if (interactive) return;
       // Click on left third = back, right two-thirds = forward
       const rect = stage.getBoundingClientRect();
@@ -233,6 +263,19 @@
       if (xRel < 0.25) prev(); else next();
     });
   }
+
+  // ---------- Jump cards (agenda items) ----------
+  document.querySelectorAll('[data-jump-to]').forEach(el => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const idStr = String(el.dataset.jumpTo).padStart(2, '0');
+      const target = document.getElementById('slide-' + idStr);
+      if (!target) return;
+      const slides = activeSlides();
+      const idx = slides.indexOf(target);
+      if (idx >= 0) showSlide(idx, 0);
+    });
+  });
 
   // ---------- Init ----------
   initSlides();
@@ -244,8 +287,6 @@
     if (!isNaN(n) && n >= 1) startIndex = Math.min(n - 1, activeSlides().length - 1);
   }
   showSlide(startIndex, 0);
-
-  if (tagEl) tagEl.textContent = '// un-mission workshop · v1.0';
 
   // Expose for debugging
   window.deck = {

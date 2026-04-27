@@ -3,7 +3,44 @@
  * Tokens source: ../../tokens/css-variables.css and design-system.json
  */
 
-/* ---------- Local handwritten font ---------- */
+/* ---------- Local fonts (zero-internet bundle) ---------- */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Inter-900.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./assets/fonts/JetBrainsMono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Caveat';
@@ -41,7 +78,7 @@
   --nbc-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --nbc-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
   --nbc-font-handwritten: 'Caveat', 'Comic Sans MS', cursive;
-  --nbc-font-jp: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  --nbc-font-jp: 'Yu Gothic', 'Hiragino Sans', 'Meiryo', 'Noto Sans JP', sans-serif;
 
   --nbc-tracking-display: -0.04em;
   --nbc-tracking-display-tight: -0.05em;
@@ -65,13 +102,18 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #050507;
+  background: var(--nbc-white);
   overflow: hidden;
   font-family: var(--nbc-font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  transition: background 250ms var(--reveal-easing);
 }
+
+body[data-active-surface="ink"] { background: var(--nbc-ink); }
+body[data-active-surface="white"] { background: var(--nbc-white); }
+body[data-active-surface="red"] { background: var(--nbc-red); }
 
 img, svg {
   display: block;
@@ -120,7 +162,7 @@ button {
   inset: 0;
   display: none;
   flex-direction: column;
-  padding: 5cqw 6cqw;
+  padding: 5cqw 6cqw 8cqw;
   font-size: 1.4cqw;
   line-height: 1.5;
   background: var(--nbc-white);
@@ -325,24 +367,67 @@ button {
   opacity: 1;
 }
 
-/* ---------- Slide counter ---------- */
+/* ---------- Standard slide footer ---------- */
 
-.slide-counter {
-  position: fixed;
-  right: 1.2rem;
-  bottom: 1rem;
+.slide-footer {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  bottom: 2.5cqw;
+  padding-top: 1cqw;
+  border-top: 0.5px solid var(--nbc-hairline-light);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2cqw;
   font-family: var(--nbc-font-mono);
-  font-size: 11px;
+  font-size: 0.82cqw;
   letter-spacing: var(--nbc-tracking-mono);
   color: var(--nbc-text-muted-light);
-  background: rgba(255, 255, 255, 0.75);
-  padding: 0.35rem 0.6rem;
-  border-radius: 2px;
+  z-index: 10;
   pointer-events: none;
-  z-index: 100;
-  mix-blend-mode: difference;
-  color: #B8B5AB;
-  background: transparent;
+}
+
+.footer-mark {
+  font-family: var(--nbc-font-display);
+  font-weight: 900;
+  font-size: 1.05cqw;
+  letter-spacing: -0.02em;
+  color: var(--nbc-text-primary-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4cqw;
+}
+
+.footer-mark::after {
+  content: "";
+  width: 0.5cqw;
+  height: 0.5cqw;
+  min-width: 5px;
+  min-height: 5px;
+  background: var(--nbc-red);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.footer-tag {
+  text-align: center;
+}
+
+.footer-num {
+  text-align: right;
+}
+
+/* Ink surface variant */
+.slide[data-surface="ink"] .slide-footer,
+.slide[data-state="2"][data-state-2-surface="ink"] .slide-footer {
+  border-top-color: var(--nbc-hairline-dark);
+  color: var(--nbc-text-secondary-dark);
+}
+
+.slide[data-surface="ink"] .footer-mark,
+.slide[data-state="2"][data-state-2-surface="ink"] .footer-mark {
+  color: var(--nbc-text-primary-dark);
 }
 
 /* ---------- Common slide layouts ---------- */
@@ -395,13 +480,13 @@ button {
   grid-template-columns: 5cqw 1fr;
   align-items: baseline;
   gap: 1.5cqw;
-  padding: 1.4cqw 0;
+  padding: 0.95cqw 0.6cqw;
   border-bottom: 0.5px solid var(--nbc-hairline-light);
 }
 
 .agenda-list .agenda-num {
   font-family: var(--nbc-font-mono);
-  font-size: 1.05cqw;
+  font-size: 0.95cqw;
   color: var(--nbc-red);
   letter-spacing: var(--nbc-tracking-mono);
 }
@@ -409,9 +494,70 @@ button {
 .agenda-list .agenda-title {
   font-family: var(--nbc-font-display);
   font-weight: 900;
-  font-size: 1.7cqw;
+  font-size: 1.45cqw;
   letter-spacing: -0.02em;
   color: var(--nbc-text-primary-light);
+}
+
+/* ---------- Agenda as cards (slide 02) ---------- */
+
+.agenda-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1cqw;
+  width: 100%;
+  max-width: 1500px;
+  margin-top: 1cqw;
+}
+
+.agenda-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7cqw;
+  padding: 1.4cqw 1.4cqw 1.6cqw;
+  border-top: 1.2px solid var(--nbc-red);
+  border-left: 0.5px solid var(--nbc-hairline-light);
+  border-right: 0.5px solid var(--nbc-hairline-light);
+  border-bottom: 0.5px solid var(--nbc-hairline-light);
+  background: var(--nbc-white);
+  cursor: pointer;
+  transition: transform 200ms var(--reveal-easing),
+              box-shadow 200ms var(--reveal-easing),
+              border-color 200ms var(--reveal-easing);
+  min-height: 7.5cqw;
+}
+
+.agenda-card:hover {
+  transform: translateY(-0.3cqw);
+  box-shadow: 0 0.6cqw 1.5cqw rgba(0, 0, 0, 0.08);
+  border-left-color: #8a8578;
+  border-right-color: #8a8578;
+  border-bottom-color: #8a8578;
+}
+
+.agenda-card .agenda-num {
+  font-family: var(--nbc-font-mono);
+  font-size: 0.85cqw;
+  color: var(--nbc-red);
+  letter-spacing: var(--nbc-tracking-mono);
+}
+
+.agenda-card .agenda-title {
+  font-family: var(--nbc-font-display);
+  font-weight: 900;
+  font-size: 1.35cqw;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--nbc-text-primary-light);
+  transition: color 200ms var(--reveal-easing);
+}
+
+.agenda-card:hover .agenda-title {
+  color: var(--nbc-red);
 }
 
 /* ---------- 03 / 05 Two-column with photo ---------- */
@@ -469,7 +615,7 @@ button {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 5cqw 6cqw;
+  padding: 5cqw 6cqw 8cqw;
   gap: 2cqw;
 }
 
@@ -553,7 +699,6 @@ button {
 /* ---------- 07 / 09 / 19 / 25 / 28 / 31 Section break ---------- */
 
 .section-break {
-  position: relative;
   overflow: hidden;
   padding: 6cqw;
 }
@@ -615,7 +760,7 @@ button {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 5cqw 6cqw;
+  padding: 5cqw 6cqw 8cqw;
   gap: 2cqw;
 }
 
@@ -751,17 +896,21 @@ button {
   flex: 1;
   gap: 1.5cqw;
   padding-top: 1.5cqw;
+  min-height: 0;
 }
 
 .btl-graph {
   flex: 1;
   position: relative;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .btl-graph svg {
   width: 100%;
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
+  display: block;
 }
 
 .handwritten {
@@ -776,40 +925,178 @@ button {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
 }
 
-.btl-line.draw {
-  animation: btl-draw 1s var(--reveal-easing) forwards;
+.btl-line.draw { animation-fill-mode: forwards; }
+
+/* "Most companies" — quiet, dark, thin, jagged data-like line */
+.btl-flat {
+  stroke: #2A2A2A;
+  stroke-width: 2;
+  opacity: 0.85;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 8;
+}
+
+.btl-flat.draw {
+  animation: btl-draw 900ms var(--reveal-easing) forwards;
+}
+
+/* "Built to Last" — brand red, owns the moment */
+.btl-rising {
+  stroke: var(--nbc-red);
+  stroke-width: 4;
+}
+
+.btl-rising.draw {
+  animation: btl-draw 1300ms cubic-bezier(0.55, 0, 0.95, 0.45) forwards;
 }
 
 @keyframes btl-draw {
   to { stroke-dashoffset: 0; }
 }
 
-.btl-flat {
-  stroke: var(--nbc-red);
-  stroke-width: 3.5;
+/* Endpoint dot on rising line — fades + scales in with the line draw */
+.btl-endpoint {
+  opacity: 0;
+  transform-origin: 1175px 15px;
+  transform: scale(0);
+  transition: opacity 350ms var(--reveal-easing) 1000ms,
+              transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 1000ms;
 }
 
-.btl-rising {
-  stroke: #2C5FAA;
-  stroke-width: 3;
+.btl-endpoint.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
-/* ---------- 14 / 15 / 17 Guess and reveal ---------- */
+/* ---------- 14 / 15 / 17 Brand-guess (morph state-1 → state-2) ---------- */
 
-.guess-reveal {
+.brand-guess {
+  padding: 0 !important;
+}
+
+.brand-guess-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms var(--reveal-easing);
+  z-index: 1;
+}
+
+.brand-guess[data-state="2"] .brand-guess-bg {
+  opacity: 1;
+}
+
+/* Subtle dark gradient on the photo for legibility */
+.brand-guess[data-state="2"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.05) 55%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 700ms var(--reveal-easing);
+}
+
+.brand-guess[data-state="2"]::after { opacity: 1; }
+
+.brand-guess-overlay {
   position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5cqw 6cqw 8cqw;
+  gap: 2cqw;
 }
+
+.brand-guess-stage {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-guess-quote {
+  font-family: var(--nbc-font-display);
+  font-weight: 900;
+  font-size: 7cqw;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: var(--nbc-text-primary-light);
+  max-width: 14ch;
+  margin: 0 0 3cqw 0;
+  transition: font-size 700ms var(--reveal-easing),
+              max-width 700ms var(--reveal-easing),
+              color 700ms var(--reveal-easing),
+              text-shadow 700ms var(--reveal-easing),
+              margin-bottom 700ms var(--reveal-easing),
+              line-height 700ms var(--reveal-easing);
+}
+
+/* Long-quote variant (slide 15) — start smaller */
+.brand-guess--long .brand-guess-quote {
+  font-size: 4.4cqw;
+  max-width: 22ch;
+  line-height: 1.05;
+}
+
+.brand-guess[data-state="2"] .brand-guess-quote {
+  font-size: 1.7cqw;
+  max-width: 38ch;
+  line-height: 1.4;
+  color: var(--nbc-text-primary-dark);
+  text-shadow: 0 0.15cqw 0.5cqw rgba(0,0,0,0.65), 0 0 1.2cqw rgba(0,0,0,0.4);
+  margin-bottom: 1.2cqw;
+}
+
+.brand-guess--long[data-state="2"] .brand-guess-quote {
+  font-size: 1.6cqw;
+  max-width: 42ch;
+}
+
+/* Inline second-sentence reveal on slide 17 — fades in at step 1 (still state 1) */
+.brand-guess-quote-2 {
+  display: inline-block;
+}
+
+.brand-guess-name {
+  font-family: var(--nbc-font-display);
+  font-weight: 900;
+  font-size: 0;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  color: var(--nbc-text-primary-dark);
+  text-shadow: 0 0.3cqw 0.9cqw rgba(0,0,0,0.7), 0 0 1.6cqw rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: font-size 700ms var(--reveal-easing) 100ms,
+              opacity 700ms var(--reveal-easing) 100ms;
+}
+
+.brand-guess[data-state="2"] .brand-guess-name {
+  font-size: 9.5cqw;
+  opacity: 1;
+}
+
+/* Slightly smaller for the long Cirque name */
+.brand-guess--long[data-state="2"] .brand-guess-name {
+  font-size: 6.4cqw;
+}
+
+/* ---------- (legacy) 14 / 15 / 17 Guess and reveal ---------- */
 
 .guess-reveal .state-1 {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
-  padding: 5cqw 6cqw;
+  padding: 5cqw 6cqw 8cqw;
   gap: 2cqw;
   transition: opacity 600ms var(--reveal-easing);
   z-index: 2;
@@ -848,7 +1135,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5cqw 6cqw;
+  padding: 5cqw 6cqw 8cqw;
   color: var(--nbc-text-primary-dark);
 }
 
@@ -874,51 +1161,102 @@ button {
   color: var(--nbc-text-secondary-dark);
 }
 
-/* ---------- 16. Coke vs Pepsi ---------- */
+/* ---------- 16. Coke vs Pepsi (layered) ---------- */
 
-.cokepepsi-state1 {
+.cokepepsi {
+  padding: 0 !important;
+}
+
+.cokepepsi-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--nbc-white);
+  opacity: 0;
+  transition: opacity 600ms var(--reveal-easing);
+  z-index: 1;
+}
+
+.cokepepsi[data-state="2"] .cokepepsi-bg {
+  opacity: 1;
+}
+
+.cokepepsi-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5cqw 6cqw 8cqw;
+  gap: 2cqw;
+}
+
+.cokepepsi-cols {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 4cqw;
+  grid-template-columns: 1.1fr 0.5fr 1fr;
+  gap: 1cqw;
   flex: 1;
   align-items: center;
   padding: 2cqw 0;
 }
 
-.cokepepsi-coke {
-  display: flex;
-  flex-direction: column;
-  gap: 1cqw;
-}
-
+.cokepepsi-coke,
 .cokepepsi-pepsi {
   display: flex;
   flex-direction: column;
   gap: 1cqw;
-  border-left: 0.5px solid var(--nbc-hairline-light);
-  padding-left: 3cqw;
+  padding: 1.5cqw 1.8cqw;
+  border-radius: 3px;
+  transition: background 400ms var(--reveal-easing), box-shadow 400ms var(--reveal-easing);
+}
+
+/* In state 2, give text panels a translucent backdrop so they stay legible over the cans image */
+.cokepepsi[data-state="2"] .cokepepsi-coke,
+.cokepepsi[data-state="2"] .cokepepsi-pepsi {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .cokepepsi-coke .h-hero {
-  font-size: 5cqw;
+  font-size: 4.6cqw;
   letter-spacing: -0.04em;
   line-height: 0.95;
-  max-width: 18ch;
+  max-width: 12ch;
 }
 
 .cokepepsi-pepsi .pepsi-text {
-  font-size: 1.2cqw;
-  line-height: 1.55;
+  font-size: 1.15cqw;
+  line-height: 1.5;
   color: var(--nbc-text-body-light);
-  max-width: 42ch;
+  max-width: 38ch;
 }
 
-.cokepepsi-tag {
-  font-family: var(--nbc-font-mono);
-  font-size: 0.95cqw;
+.cokepepsi-vs {
+  font-family: var(--nbc-font-display);
+  font-weight: 900;
+  font-size: 6cqw;
+  letter-spacing: -0.05em;
+  text-align: center;
   color: var(--nbc-text-muted-light);
-  letter-spacing: var(--nbc-tracking-mono);
+  align-self: center;
+  text-transform: uppercase;
+  opacity: 0.4;
+  transition: opacity 400ms var(--reveal-easing);
 }
+
+.cokepepsi[data-state="2"] .cokepepsi-vs {
+  opacity: 0;
+}
+
+/* State 1 / state 2 mono caption toggle */
+.cokepepsi-mono--s2 { display: none; }
+.cokepepsi[data-state="2"] .cokepepsi-mono--s1 { display: none; }
+.cokepepsi[data-state="2"] .cokepepsi-mono--s2 { display: inline-flex; }
 
 /* ---------- 18. More examples list ---------- */
 
@@ -928,35 +1266,74 @@ button {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1cqw;
+  gap: 0.4cqw;
   border-top: 0.5px solid var(--nbc-hairline-light);
-  padding-top: 2cqw;
+  padding-top: 1.2cqw;
 }
 
 .examples-list li {
   display: flex;
   align-items: baseline;
   gap: 2cqw;
-  padding-bottom: 0.7cqw;
+  padding-bottom: 0.45cqw;
   border-bottom: 0.5px solid var(--nbc-hairline-light);
 }
 
 .examples-list .item {
   font-family: var(--nbc-font-display);
   font-weight: 900;
-  font-size: 2.2cqw;
+  font-size: 1.65cqw;
   letter-spacing: -0.025em;
   color: var(--nbc-text-primary-light);
 }
 
 .examples-list .attr {
   font-family: var(--nbc-font-mono);
-  font-size: 1cqw;
+  font-size: 0.85cqw;
   color: var(--nbc-text-muted-light);
   letter-spacing: var(--nbc-tracking-mono);
 }
 
-/* ---------- 20-24, 26, 27 Tool / What-isnt cards ---------- */
+/* ---------- 20. Alignment tool (full-image variant) ---------- */
+
+.alignment-slide {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5cqw;
+  flex: 1;
+  min-height: 0;
+}
+
+.alignment-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqw;
+}
+
+.alignment-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.alignment-image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.alignment-slide .footnote {
+  font-family: var(--nbc-font-mono);
+  font-size: 0.95cqw;
+  color: var(--nbc-text-muted-light);
+  letter-spacing: var(--nbc-tracking-mono);
+}
+
+/* ---------- 21-24, 26, 27 Tool / What-isnt cards ---------- */
 
 .tool-card {
   display: grid;
@@ -1035,10 +1412,6 @@ button {
 
 /* ---------- 29 / 30 / 36 Full-bleed photo on ink ---------- */
 
-.full-photo-slide {
-  position: relative;
-}
-
 .full-photo-slide .full-photo-bg {
   position: absolute;
   inset: 0;
@@ -1078,6 +1451,148 @@ button {
 
 .full-photo-slide .photo-bottom {
   margin-top: auto;
+}
+
+/* ---------- 29. Somer intro (monochrome soaring) ---------- */
+
+.full-photo-slide[id="slide-29"] .full-photo-bg {
+  filter: grayscale(1) saturate(0) brightness(0.85);
+}
+
+/* ---------- 36. Notebook (2-col: photo left, headline right) ---------- */
+
+.notebook-slide {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4cqw;
+  flex: 1;
+  align-items: center;
+  min-height: 0;
+}
+
+.notebook-photo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.notebook-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 1cqw 2.5cqw rgba(0, 0, 0, 0.12);
+}
+
+.notebook-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqw;
+}
+
+.notebook-text .h-mid {
+  max-width: 12ch;
+}
+
+@media (max-width: 720px) {
+  .notebook-slide {
+    grid-template-columns: 1fr;
+    gap: 2cqw;
+  }
+}
+
+/* ---------- 30. Somer layered (play structure centered, full-height, monochrome, slides up over soaring) ---------- */
+
+.somer-layered {
+  padding: 0 !important;
+}
+
+.somer-layered .somer-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  z-index: 1;
+  transition: filter 600ms var(--reveal-easing);
+}
+
+.somer-layered[data-state="2"] .somer-bg {
+  filter: brightness(1);
+}
+
+.somer-layered .somer-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 4cqw 6cqw 6cqw;
+  gap: 1cqw;
+}
+
+.somer-layered .slide-top .eyebrow {
+  color: var(--nbc-text-primary-dark);
+}
+
+.somer-floating-photo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1) saturate(0);
+  box-shadow: 0 2cqw 4cqw rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  /* default reveal state — hidden, slid down */
+  opacity: 0;
+  transform: translate(-50%, 4cqw);
+  transition: opacity 600ms var(--reveal-easing), transform 600ms var(--reveal-easing);
+}
+
+.somer-floating-photo.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* On state 2 the play structure (scary memory) lifts away to reveal the bright soaring photo */
+.somer-layered[data-state="2"] .somer-floating-photo {
+  opacity: 0;
+  transform: translate(-50%, -2cqw);
+  pointer-events: none;
+}
+
+/* Eyebrow & realization sit on top of the photo via overlay z-index 3 */
+.somer-layered .somer-overlay {
+  z-index: 3;
+}
+
+.somer-layered .slide-top .eyebrow {
+  text-shadow: 0 0.2cqw 0.6cqw rgba(0, 0, 0, 0.55);
+}
+
+.somer-realization-band {
+  position: absolute;
+  left: 6cqw;
+  bottom: 8cqw;
+  max-width: 32cqw;
+  z-index: 3;
+}
+
+.somer-realization-band .realization {
+  font-size: 3.4cqw;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--nbc-text-primary-dark);
+  text-shadow: 0 0.25cqw 0.6cqw rgba(0, 0, 0, 0.75), 0 0 1.6cqw rgba(0, 0, 0, 0.55);
 }
 
 /* ---------- 32-35 Your turn prompt slides ---------- */
@@ -1168,8 +1683,6 @@ button {
 /* ---------- 38. Closing - red full-bleed ---------- */
 
 .closing-slide {
-  display: flex;
-  flex-direction: column;
   padding: 6cqw;
 }
 
@@ -1186,6 +1699,15 @@ button {
   max-width: 36ch;
 }
 
+.closing-brandline {
+  font-family: var(--nbc-font-mono);
+  font-size: 1.1cqw;
+  letter-spacing: var(--nbc-tracking-mono);
+  color: var(--nbc-text-on-red);
+  opacity: 0.85;
+  margin-bottom: 1.5cqw;
+}
+
 .closing-contact {
   border-top: 0.5px solid var(--nbc-hairline-on-red);
   padding-top: 1.5cqw;
@@ -1200,19 +1722,56 @@ button {
 
 .closing-contact span { opacity: 0.9; }
 
-/* ---------- Footer (slide counter + project tag) ---------- */
-
-.deck-tag {
-  position: fixed;
-  left: 1.2rem;
-  bottom: 1rem;
+.closing-restart {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2cqw;
+  padding: 0.7cqw 1.1cqw;
   font-family: var(--nbc-font-mono);
-  font-size: 11px;
+  font-size: 0.95cqw;
   letter-spacing: var(--nbc-tracking-mono);
-  color: var(--nbc-text-muted-light);
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.6;
+  color: var(--nbc-text-on-red);
+  background: rgba(255, 255, 255, 0.12);
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 200ms var(--reveal-easing), border-color 200ms var(--reveal-easing);
+  align-self: flex-start;
+}
+
+.closing-restart:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+/* ---------- Slide-to-slide view transitions (Chrome/Edge/Safari) ---------- */
+
+/* Root crossfade: subtle 280ms */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+/* Footer continuity — only the active slide's footer elements get a transition
+   name, so the API can morph the same logical element across slides. */
+.slide.is-active .footer-mark { view-transition-name: nbc-footer-mark; }
+.slide.is-active .footer-tag  { view-transition-name: nbc-footer-tag; }
+.slide.is-active .footer-num  { view-transition-name: nbc-footer-num; }
+
+/* Named transitions get a slightly snappier morph */
+::view-transition-old(nbc-footer-mark),
+::view-transition-new(nbc-footer-mark),
+::view-transition-old(nbc-footer-tag),
+::view-transition-new(nbc-footer-tag),
+::view-transition-old(nbc-footer-num),
+::view-transition-new(nbc-footer-num) {
+  animation-duration: 240ms;
+}
+
+/* Disable transitions in print mode */
+@media print {
+  ::view-transition-group(*) { animation: none !important; }
 }
 
 /* ---------- Print mode ---------- */
@@ -1248,10 +1807,6 @@ body.print-mode .slide {
 
 body.print-mode .slide[data-skip="true"] { display: none !important; }
 
-body.print-mode .slide-counter,
-body.print-mode .deck-tag {
-  display: none;
-}
 
 body.print-mode .reveal {
   opacity: 1;
@@ -1287,7 +1842,6 @@ body.print-mode .slide[data-state-2-surface="ink"] {
 
 @media print {
   html, body { background: var(--nbc-white); overflow: visible; }
-  .slide-counter, .deck-tag { display: none; }
   .stage { width: 100%; height: auto; }
   .slide {
     position: relative;
