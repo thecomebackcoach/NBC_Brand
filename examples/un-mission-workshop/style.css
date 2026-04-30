@@ -1856,3 +1856,47 @@ body.print-mode .slide[data-state-2-surface="ink"] {
   .guess-reveal .state-2 { opacity: 1; position: relative; }
   .btl-line { stroke-dashoffset: 0 !important; }
 }
+
+/* ---------- Capture board (slide 33) ---------- */
+/* Live working surface — Nick types participants' words; the room sees them on screen. */
+
+.capture-slide {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqw;
+  flex: 1;
+  min-height: 0;
+}
+
+.capture-board {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 60cqh;
+  margin: 0;
+  padding: 2.2cqw;
+  border: 1px solid var(--nbc-hairline-light);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--nbc-font-mono);
+  font-size: 1.7cqw;
+  line-height: 1.55;
+  letter-spacing: var(--nbc-tracking-mono);
+  color: var(--nbc-text-primary-light);
+  resize: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  caret-color: var(--nbc-red);
+  transition: border-color 200ms var(--reveal-easing);
+}
+
+.capture-board:focus,
+.capture-board:hover {
+  border-color: var(--nbc-text-primary-light);
+}
+
+.capture-board::placeholder {
+  color: var(--nbc-text-muted-light);
+  opacity: 0.5;
+}

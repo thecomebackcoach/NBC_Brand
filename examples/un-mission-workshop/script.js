@@ -277,6 +277,19 @@
     });
   });
 
+  // ---------- Capture board (sessionStorage) ----------
+  // Slide 33 holds a live textarea where Nick types participants' words.
+  // Persist across slide nav and F5; reset when the tab closes.
+  const captureBoard = document.querySelector('[data-capture-board]');
+  if (captureBoard) {
+    const CAPTURE_KEY = 'nbc-workshop-capture-board';
+    const stored = sessionStorage.getItem(CAPTURE_KEY);
+    if (stored !== null) captureBoard.value = stored;
+    captureBoard.addEventListener('input', () => {
+      sessionStorage.setItem(CAPTURE_KEY, captureBoard.value);
+    });
+  }
+
   // ---------- Init ----------
   initSlides();
 
