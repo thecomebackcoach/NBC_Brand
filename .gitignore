@@ -11,5 +11,5 @@ node_modules/
 build/
 dist/
 
-# Claude Code local settings
-.claude/
+# Claude Code — ignore local-only settings, but commit skills so they ship with the repo
+.claude/settings.local.json

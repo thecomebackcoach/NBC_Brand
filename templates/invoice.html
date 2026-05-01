@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!--
+  NBC Invoice template — v1
+  Source of truth for branded invoices.
+
+  Placeholders (replaced by the /new-invoice skill):
+    {{INVOICE_NUM}}       e.g. 194
+    {{ISSUE_DATE}}        e.g. 2026-05-15        (ISO YYYY-MM-DD)
+    {{DUE_DATE}}          e.g. 2026-06-14        (ISO YYYY-MM-DD)
+    {{CLIENT_NAME}}       e.g. Alex Pym
+    {{CLIENT_LINES}}      additional bill-to lines after the name (or "" if none) — already wrapped in <div>s
+    {{PO_NUMBER}}         e.g. ABC-123, or "—" if blank
+    {{LINE_ITEMS_ROWS}}   one or more <tr> rows (see template at bottom of this file)
+    {{SUBTOTAL}}          e.g. 200.00            (number, two decimals)
+    {{TAX_AMOUNT}}        e.g. 10.00             (number, two decimals — 5% of subtotal of taxable items)
+    {{TOTAL}}             e.g. 210.00            (number, two decimals)
+    {{BALANCE_DUE}}       e.g. 210.00            (number, two decimals — usually equals TOTAL)
+
+  Font paths assume the rendered file sits in invoices/ or templates/ — either way,
+  ../examples/un-mission-workshop/assets/fonts/ resolves to the same place.
+
+  Single line item row template (for {{LINE_ITEMS_ROWS}}):
+      <tr>
+        <td class="item">Consulting</td>
+        <td>Mission Workshop</td>
+        <td class="right">1</td>
+        <td class="right">200.00</td>
+        <td class="right">200.00<span class="tax-mark">T</span></td>
+      </tr>
+
+  Drop the <span class="tax-mark">T</span> if a line is non-taxable.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice {{INVOICE_NUM}} — {{CLIENT_NAME}} — Nick Banks Consulting</title>
+  <meta name="description" content="Invoice {{INVOICE_NUM}}, Nick Banks Consulting to {{CLIENT_NAME}}, issued {{ISSUE_DATE}}." />
+  <style>
+    /* ---------- Local fonts ---------- */
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-900.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:swap; }
+    @font-face { font-family:'JetBrains Mono'; src:url('../examples/un-mission-workshop/assets/fonts/JetBrainsMono-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+
+    /* ---------- Tokens ---------- */
+    :root {
+      --nbc-white: #FFFFFF;
+      --nbc-off-white: #F5F1E8;
+      --nbc-ink: #0E0E0F;
+      --nbc-text-primary: #0A0A0A;
+      --nbc-text-body: #1C1B19;
+      --nbc-text-muted: #5C5A53;
+      --nbc-red: #D9352A;
+      --nbc-hairline: #BDB8AC;
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+      --tracking-display: -0.04em;
+      --tracking-display-tight: -0.05em;
+      --tracking-eyebrow: 0.18em;
+      --tracking-mono: 0.04em;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--nbc-white);
+      font-family: var(--font-body);
+      color: var(--nbc-text-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+
+    /* ---------- Page ---------- */
+    @page { size: letter; margin: 0; }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      padding: 0.7in 0.85in;
+      background: var(--nbc-white);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ---------- Eyebrow / mono ---------- */
+    .eyebrow {
+      font-family: var(--font-display); font-weight: 500; font-size: 9pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-primary); position: relative; padding-left: 16px;
+    }
+    .eyebrow::before {
+      content: ""; position: absolute; left: 0; top: 50%;
+      width: 8px; height: 8px; border-radius: 50%; transform: translateY(-50%);
+      background: var(--nbc-red);
+    }
+    .mono { font-family: var(--font-mono); font-size: 9.5pt; letter-spacing: var(--tracking-mono); color: var(--nbc-text-muted); }
+
+    /* ---------- Header ---------- */
+    .invoice-head {
+      display: grid; grid-template-columns: 1fr auto; align-items: start;
+      gap: 0.6in; padding-bottom: 28px;
+      border-bottom: 1px solid var(--nbc-hairline);
+    }
+
+    .brand-block .eyebrow { margin-bottom: 12px; }
+    .brand-name {
+      font-family: var(--font-display); font-weight: 900; font-size: 18pt;
+      letter-spacing: var(--tracking-display-tight); color: var(--nbc-text-primary);
+      margin: 0 0 4px;
+    }
+    .brand-address {
+      font-family: var(--font-body); font-weight: 400; font-size: 10.5pt;
+      line-height: 1.5; color: var(--nbc-text-body); margin: 0;
+    }
+    .brand-gst {
+      margin-top: 10px;
+      font-family: var(--font-mono); font-size: 9.5pt; letter-spacing: var(--tracking-mono);
+      color: var(--nbc-text-muted);
+    }
+
+    .invoice-mark {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 16px;
+    }
+    .invoice-title {
+      font-family: var(--font-display); font-weight: 900; font-size: 56pt; line-height: 0.9;
+      letter-spacing: var(--tracking-display-tight); color: var(--nbc-text-primary);
+      margin: 0;
+    }
+    .invoice-title .dot { color: var(--nbc-red); }
+
+    .meta-grid {
+      display: grid; grid-template-columns: auto auto;
+      border: 1px solid var(--nbc-hairline);
+      min-width: 2.6in;
+    }
+    .meta-grid .cell {
+      padding: 8px 14px;
+      border-right: 1px solid var(--nbc-hairline);
+      border-bottom: 1px solid var(--nbc-hairline);
+    }
+    .meta-grid .cell:nth-child(2n) { border-right: 0; }
+    .meta-grid .cell:nth-last-child(-n+2) { border-bottom: 0; }
+    .meta-grid .label {
+      font-family: var(--font-display); font-weight: 500; font-size: 8.5pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-muted); margin-bottom: 4px;
+    }
+    .meta-grid .value {
+      font-family: var(--font-mono); font-size: 11pt; letter-spacing: var(--tracking-mono);
+      color: var(--nbc-text-primary);
+    }
+    .meta-grid .value.accent { color: var(--nbc-red); font-weight: 400; }
+
+    /* ---------- Bill-to + terms band ---------- */
+    .info-band {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.5in;
+      margin-top: 32px; margin-bottom: 32px;
+    }
+    .billto, .terms { border: 1px solid var(--nbc-hairline); }
+    .billto .label-bar, .terms .label-bar {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--nbc-hairline);
+      font-family: var(--font-display); font-weight: 500; font-size: 8.5pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-muted);
+    }
+    .billto .body { padding: 16px 14px 22px; min-height: 1.1in; }
+    .billto .name {
+      font-family: var(--font-display); font-weight: 700; font-size: 14pt;
+      letter-spacing: -0.01em; color: var(--nbc-text-primary);
+    }
+    .billto .extra {
+      margin-top: 6px;
+      font-family: var(--font-body); font-size: 10.5pt; line-height: 1.5;
+      color: var(--nbc-text-body);
+    }
+
+    .terms { display: grid; grid-template-rows: auto 1fr; }
+    .terms-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .terms-grid .cell {
+      padding: 10px 14px;
+      border-right: 1px solid var(--nbc-hairline);
+    }
+    .terms-grid .cell:last-child { border-right: 0; }
+    .terms-grid .label {
+      font-family: var(--font-display); font-weight: 500; font-size: 8.5pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-muted); margin-bottom: 4px;
+    }
+    .terms-grid .value {
+      font-family: var(--font-mono); font-size: 11pt; letter-spacing: var(--tracking-mono);
+      color: var(--nbc-text-primary);
+    }
+    .terms-grid .value.empty { color: var(--nbc-text-muted); opacity: 0.5; }
+
+    /* ---------- Line items ---------- */
+    .items { width: 100%; border-collapse: collapse; }
+    .items thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--nbc-hairline);
+      border-top: 1px solid var(--nbc-hairline);
+      font-family: var(--font-display); font-weight: 500; font-size: 8.5pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-muted);
+    }
+    .items thead th.right { text-align: right; }
+    .items tbody td {
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--nbc-hairline);
+      font-family: var(--font-body); font-size: 11pt; line-height: 1.5;
+      color: var(--nbc-text-primary); vertical-align: top;
+    }
+    .items tbody td.item { font-weight: 700; }
+    .items tbody td.right { text-align: right; font-family: var(--font-mono); letter-spacing: var(--tracking-mono); }
+    .items tbody td .tax-mark {
+      display: inline-block; margin-left: 6px;
+      font-family: var(--font-mono); font-size: 8pt; color: var(--nbc-red);
+      letter-spacing: var(--tracking-mono);
+    }
+
+    .items col.col-item { width: 1.4in; }
+    .items col.col-qty { width: 0.7in; }
+    .items col.col-rate { width: 1.1in; }
+    .items col.col-amount { width: 1.3in; }
+
+    /* ---------- Totals ---------- */
+    .totals-row {
+      display: grid; grid-template-columns: 1fr 3.2in;
+      margin-top: 24px;
+    }
+    .totals { display: grid; grid-template-columns: auto 1fr; gap: 0; }
+    .totals .label, .totals .value {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--nbc-hairline);
+      font-family: var(--font-mono); font-size: 11pt; letter-spacing: var(--tracking-mono);
+    }
+    .totals .label { color: var(--nbc-text-muted); }
+    .totals .value { color: var(--nbc-text-primary); text-align: right; }
+    .totals .row-balance .label,
+    .totals .row-balance .value {
+      background: var(--nbc-ink); color: var(--nbc-white);
+      border-bottom: 0;
+      font-weight: 700;
+      padding-top: 14px; padding-bottom: 14px;
+      font-size: 13pt;
+    }
+    .totals .row-balance .value { font-weight: 700; }
+
+    /* ---------- Payment / footer ---------- */
+    .pay-block {
+      margin-top: 36px;
+      padding: 22px 26px;
+      border: 1px solid var(--nbc-hairline);
+      display: grid; grid-template-columns: auto 1fr; gap: 22px;
+      align-items: center;
+    }
+    .pay-block .pay-eyebrow .eyebrow { margin-bottom: 6px; }
+    .pay-block .pay-eyebrow .mono { display: block; }
+    .pay-block .pay-line {
+      font-family: var(--font-display); font-weight: 700; font-size: 16pt;
+      letter-spacing: -0.01em; color: var(--nbc-text-primary);
+    }
+    .pay-block .pay-line a { color: var(--nbc-red); text-decoration: none; }
+    .pay-block .pay-sub {
+      margin-top: 4px;
+      font-family: var(--font-body); font-size: 10pt; color: var(--nbc-text-muted);
+    }
+
+    .invoice-foot {
+      margin-top: auto; padding-top: 18px;
+      border-top: 1px solid var(--nbc-hairline);
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--font-mono); font-size: 9pt; letter-spacing: var(--tracking-mono);
+      color: var(--nbc-text-muted);
+    }
+
+    /* ---------- Print refinements ---------- */
+    @media print {
+      body { background: var(--nbc-white); }
+      .page { box-shadow: none !important; margin: 0 !important; }
+      a { color: var(--nbc-red); text-decoration: none; }
+    }
+    @media screen {
+      body { padding: 24px 0; display: flex; flex-direction: column; align-items: center; gap: 24px; background: #d9d4c5; }
+      .page { box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="page">
+
+    <header class="invoice-head">
+      <div class="brand-block">
+        <div class="eyebrow">Nick Banks Consulting</div>
+        <h1 class="brand-name">Strategy with a pulse.</h1>
+        <p class="brand-address">C — 1556 Oakland Ave<br>Victoria, BC&nbsp;&nbsp;V8T 2L2</p>
+        <div class="brand-gst">// gst#&nbsp;&nbsp;78285 9565 RT0001</div>
+      </div>
+      <div class="invoice-mark">
+        <h2 class="invoice-title">Invoice<span class="dot">.</span></h2>
+        <div class="meta-grid">
+          <div class="cell">
+            <div class="label">Invoice #</div>
+            <div class="value accent">{{INVOICE_NUM}}</div>
+          </div>
+          <div class="cell">
+            <div class="label">Date</div>
+            <div class="value">{{ISSUE_DATE}}</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="info-band">
+      <div class="billto">
+        <div class="label-bar">// bill to</div>
+        <div class="body">
+          <div class="name">{{CLIENT_NAME}}</div>
+          {{CLIENT_LINES}}
+        </div>
+      </div>
+      <div class="terms">
+        <div class="label-bar">// terms</div>
+        <div class="terms-grid">
+          <div class="cell">
+            <div class="label">Due Date</div>
+            <div class="value">{{DUE_DATE}}</div>
+          </div>
+          <div class="cell">
+            <div class="label">P.O. Number</div>
+            <div class="value">{{PO_NUMBER}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="items">
+      <colgroup>
+        <col class="col-item" />
+        <col />
+        <col class="col-qty" />
+        <col class="col-rate" />
+        <col class="col-amount" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Description</th>
+          <th class="right">Qty</th>
+          <th class="right">Rate</th>
+          <th class="right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{LINE_ITEMS_ROWS}}
+      </tbody>
+    </table>
+
+    <div class="totals-row">
+      <div></div>
+      <div class="totals">
+        <div class="label">Subtotal</div>
+        <div class="value">{{SUBTOTAL}}</div>
+
+        <div class="label">GST (5%)</div>
+        <div class="value">{{TAX_AMOUNT}}</div>
+
+        <div class="label">Total</div>
+        <div class="value">{{TOTAL}}</div>
+
+        <div class="row-balance" style="display:contents;">
+          <div class="label">Balance due</div>
+          <div class="value">$&thinsp;{{BALANCE_DUE}}&nbsp;CAD</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-block">
+      <div class="pay-eyebrow">
+        <div class="eyebrow">Payment</div>
+        <div class="mono">// e-transfer preferred</div>
+      </div>
+      <div>
+        <div class="pay-line">Send e-transfer to <a href="mailto:nick@nickbanksconsulting.com">nick@nickbanksconsulting.com</a></div>
+        <div class="pay-sub">No password required — auto-deposit is on. Reference invoice&nbsp;#{{INVOICE_NUM}} in the message.</div>
+      </div>
+    </div>
+
+    <footer class="invoice-foot">
+      <span>// gst#&nbsp;&nbsp;78285 9565 RT0001</span>
+      <span>thank you. — nick</span>
+      <span>nickbanksconsulting.com</span>
+    </footer>
+
+  </section>
+
+</body>
+</html>
