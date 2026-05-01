@@ -13,3 +13,12 @@ dist/
 
 # Claude Code — ignore local-only settings, but commit skills so they ship with the repo
 .claude/settings.local.json
+
+# Client deliverables — keep generated client-specific artifacts out of the brand repo.
+# The folders themselves and their READMEs are tracked; generated HTML/PDF outputs are not.
+invoices/*.html
+invoices/*.pdf
+clients/
+
+# One-off legacy client artifacts in the workshop folder (predate the invoices/ convention)
+examples/un-mission-workshop/alex-pym-*.html
