@@ -22,3 +22,6 @@ clients/
 
 # One-off legacy client artifacts in the workshop folder (predate the invoices/ convention)
 examples/un-mission-workshop/alex-pym-*.html
+
+# Deck zip backups (regeneratable; not source)
+examples/*-DECK.zip
