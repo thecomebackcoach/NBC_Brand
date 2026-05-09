@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<!--
+  NBC Un-Mission Workshop Recap template — v1
+  Source of truth for branded post-workshop recaps.
+
+  Placeholders (replaced by the /new-recap skill):
+    {{CLIENT_NAME}}            e.g. Alex Pym                (proper case — appears on cover, closing)
+    {{CLIENT_NAME_LOWER}}      e.g. alex pym                (lowercase — appears in mono page footers)
+    {{WORKSHOP_YEAR}}          e.g. 2026                    (cover mono note)
+    {{CAPTURED_WORDS_LIST}}    one <li>...</li> per captured line
+    {{THEME_CARDS}}            three or four <div class="theme">...</div> cards Nick reviewed
+
+  Font paths assume the rendered file sits in recaps/ — ../examples/un-mission-workshop/assets/fonts/
+  resolves from there. The template itself sits in templates/ so relative paths from here also work
+  for previewing the template directly.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The un-mission mission. — for {{CLIENT_NAME}}.</title>
+  <meta name="description" content="Workshop recap and working document for {{CLIENT_NAME}}. By Nick Banks Consulting." />
+  <style>
+    /* ---------- Local fonts ---------- */
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('../examples/un-mission-workshop/assets/fonts/Inter-900.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:swap; }
+    @font-face { font-family:'JetBrains Mono'; src:url('../examples/un-mission-workshop/assets/fonts/JetBrainsMono-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+
+    /* ---------- Tokens ---------- */
+    :root {
+      --nbc-white: #FFFFFF;
+      --nbc-off-white: #F5F1E8;
+      --nbc-ink: #0E0E0F;
+      --nbc-text-primary: #0A0A0A;
+      --nbc-text-body: #1C1B19;
+      --nbc-text-muted: #5C5A53;
+      --nbc-text-on-ink: #F2F1ED;
+      --nbc-text-on-ink-muted: #B8B5AB;
+      --nbc-text-on-red: #FCEEEC;
+      --nbc-red: #D9352A;
+      --nbc-red-recede: rgba(217, 53, 42, 0.35);
+      --nbc-hairline: #BDB8AC;
+      --nbc-hairline-on-ink: #2A2A2A;
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
+      --tracking-display: -0.04em;
+      --tracking-display-tight: -0.05em;
+      --tracking-eyebrow: 0.18em;
+      --tracking-mono: 0.04em;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--nbc-off-white);
+      font-family: var(--font-body);
+      color: var(--nbc-text-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+
+    /* Force colored backgrounds to render in PDF even when "Background graphics" is off */
+    .page, .page--ink, .page--red, .page--white,
+    .definition-card, .words-stage, .theme {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ---------- Page numbering (auto via CSS counter) ---------- */
+    body { counter-reset: page-num; }
+    .page { counter-increment: page-num; }
+    .page-num-display::before { content: counter(page-num, decimal-leading-zero); }
+
+    /* ---------- Page ---------- */
+    @page { size: letter; margin: 0; }
+
+    .page {
+      width: 8.5in;
+      height: 11in;
+      padding: 0.65in 0.85in 0.6in;
+      background: var(--nbc-off-white);
+      position: relative;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+
+    .page--ink { background: var(--nbc-ink); color: var(--nbc-text-on-ink); }
+    .page--red { background: var(--nbc-red); color: var(--nbc-text-on-red); }
+    .page--white { background: var(--nbc-white); }
+
+    /* ---------- Page header / footer ---------- */
+    .page-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0.4in;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--nbc-hairline);
+    }
+    .page--ink .page-head { border-bottom-color: var(--nbc-hairline-on-ink); }
+    .page--red .page-head { border-bottom-color: rgba(255,255,255,0.3); }
+
+    .page-foot {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--nbc-hairline);
+      font-family: var(--font-mono); font-size: 9.5pt; color: var(--nbc-text-muted);
+      letter-spacing: var(--tracking-mono);
+    }
+    .page--ink .page-foot { border-top-color: var(--nbc-hairline-on-ink); color: var(--nbc-text-on-ink-muted); }
+    .page--red .page-foot { border-top-color: rgba(255,255,255,0.3); color: var(--nbc-text-on-red); }
+
+    /* ---------- Eyebrow / mono ---------- */
+    .eyebrow {
+      font-family: var(--font-display); font-weight: 500; font-size: 9pt;
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      color: var(--nbc-text-primary); position: relative; padding-left: 16px;
+    }
+    .page--ink .eyebrow { color: var(--nbc-text-on-ink); }
+    .page--red .eyebrow { color: var(--nbc-text-on-red); }
+    .eyebrow::before {
+      content: ""; position: absolute; left: 0; top: 50%;
+      width: 8px; height: 8px; border-radius: 50%; transform: translateY(-50%);
+      background: var(--nbc-red);
+    }
+
+    .mono { font-family: var(--font-mono); font-size: 9.5pt; letter-spacing: var(--tracking-mono); color: var(--nbc-text-muted); }
+    .page--ink .mono { color: var(--nbc-text-on-ink-muted); }
+    .page--red .mono { color: var(--nbc-text-on-red); }
+
+    /* ---------- Type scale ---------- */
+    h1.h-hero {
+      font-family: var(--font-display); font-weight: 900; font-size: 64pt; line-height: 0.92;
+      letter-spacing: var(--tracking-display-tight); color: var(--nbc-text-primary);
+      margin: 0 0 28px;
+    }
+    h2.h-section {
+      font-family: var(--font-display); font-weight: 900; font-size: 44pt; line-height: 0.95;
+      letter-spacing: var(--tracking-display); color: var(--nbc-text-primary);
+      margin: 0 0 22px;
+    }
+    h2.h-large {
+      font-family: var(--font-display); font-weight: 900; font-size: 30pt; line-height: 1.05;
+      letter-spacing: var(--tracking-display); color: var(--nbc-text-primary);
+      margin: 0 0 18px;
+    }
+    h3.h-mid {
+      font-family: var(--font-display); font-weight: 700; font-size: 18pt; line-height: 1.2;
+      letter-spacing: -0.02em; color: var(--nbc-text-primary);
+      margin: 0 0 14px;
+    }
+    .page--ink h1.h-hero, .page--ink h2.h-section, .page--ink h2.h-large, .page--ink h3.h-mid { color: var(--nbc-text-on-ink); }
+    .page--red h1.h-hero, .page--red h2.h-section, .page--red h2.h-large, .page--red h3.h-mid { color: var(--nbc-text-on-red); }
+
+    .body-copy { font-family: var(--font-body); font-weight: 400; font-size: 11.5pt; line-height: 1.55; color: var(--nbc-text-body); max-width: 5.5in; }
+    .page--ink .body-copy { color: var(--nbc-text-on-ink); }
+    .body-copy + .body-copy { margin-top: 12px; }
+
+    .lead { font-family: var(--font-body); font-weight: 400; font-size: 14pt; line-height: 1.45; color: var(--nbc-text-body); max-width: 5.5in; }
+    .page--ink .lead { color: var(--nbc-text-on-ink); }
+
+    .subtitle { font-family: var(--font-body); font-weight: 400; font-size: 14pt; line-height: 1.4; color: var(--nbc-text-muted); margin: 8px 0 0; max-width: 5.5in; }
+    .page--ink .subtitle { color: var(--nbc-text-on-ink-muted); }
+    .page--red .subtitle { color: var(--nbc-text-on-red); }
+
+    .accent-red { color: var(--nbc-red); }
+
+    /* ---------- Cover ---------- */
+    .cover-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0; padding-bottom: 0; border: 0; }
+    .cover-stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0.4in 0; }
+    .cover-foot {
+      margin-top: auto; padding-top: 14px; border-top: 1px solid var(--nbc-hairline);
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: baseline;
+      font-family: var(--font-mono); font-size: 9.5pt; letter-spacing: var(--tracking-mono); color: var(--nbc-text-muted);
+    }
+    .cover-foot .end { text-align: right; }
+    .for-line { font-family: var(--font-display); font-weight: 700; font-size: 22pt; letter-spacing: -0.02em; color: var(--nbc-text-primary); margin: 26px 0 0; }
+    .for-line .accent-red { font-weight: 900; }
+
+    /* ---------- Section break (racing number) ---------- */
+    .section-break { padding: 1in 0.95in; min-height: 11in; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+    .racing-number {
+      position: absolute; right: -0.2in; top: 0.6in;
+      font-family: var(--font-display); font-weight: 900; font-size: 320pt; line-height: 0.85;
+      color: var(--nbc-red-recede); letter-spacing: var(--tracking-display-tight);
+      pointer-events: none; user-select: none;
+    }
+    .section-break .eyebrow { margin-bottom: 24px; }
+    .section-break h2.h-section { max-width: 6.2in; }
+
+    /* ---------- Highlighted callout / definition card ---------- */
+    .definition-card {
+      margin: 22px 0 0;
+      padding: 32px 36px;
+      border: 1px solid var(--nbc-hairline);
+      background: var(--nbc-white);
+    }
+    .definition-card .h-large { margin-bottom: 8px; }
+
+    /* ---------- Numbered list (benefits, principles) ---------- */
+    .numbered-list { list-style: none; padding: 0; margin: 0; }
+    .numbered-list > li {
+      display: grid; grid-template-columns: 0.55in 1fr; gap: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--nbc-hairline);
+      page-break-inside: avoid; break-inside: avoid;
+    }
+    .numbered-list > li:first-child { border-top: 1px solid var(--nbc-hairline); }
+    .numbered-list .num {
+      font-family: var(--font-mono); font-size: 11pt; color: var(--nbc-red);
+      letter-spacing: var(--tracking-mono); padding-top: 2px;
+    }
+    .numbered-list .body strong {
+      display: block; font-family: var(--font-display); font-weight: 700; font-size: 13pt;
+      color: var(--nbc-text-primary); letter-spacing: -0.01em; margin-bottom: 3px;
+    }
+    .numbered-list .body p { margin: 0; font-size: 10.5pt; line-height: 1.5; color: var(--nbc-text-body); }
+    .numbered-list .mono-note { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 9.5pt; color: var(--nbc-text-muted); letter-spacing: var(--tracking-mono); }
+
+    /* ---------- Examples grid ---------- */
+    .examples-grid {
+      display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0 0;
+    }
+    .example-row {
+      display: grid; grid-template-columns: 1.4in 1fr; gap: 22px;
+      padding: 14px 0; border-bottom: 1px solid var(--nbc-hairline);
+    }
+    .example-row:first-child { border-top: 1px solid var(--nbc-hairline); }
+    .example-row .label { font-family: var(--font-mono); font-size: 10pt; color: var(--nbc-text-muted); letter-spacing: var(--tracking-mono); padding-top: 4px; }
+    .example-row .quote { font-family: var(--font-display); font-weight: 700; font-size: 14pt; line-height: 1.3; color: var(--nbc-text-primary); letter-spacing: -0.01em; }
+    .example-row.contrast .quote { font-weight: 400; font-size: 11pt; line-height: 1.5; color: var(--nbc-text-body); font-style: italic; }
+
+    .example-list { list-style: none; padding: 0; margin: 14px 0 0; }
+    .example-list li {
+      font-family: var(--font-display); font-weight: 700; font-size: 14pt;
+      letter-spacing: -0.01em; color: var(--nbc-text-primary);
+      padding: 10px 0; border-bottom: 1px solid var(--nbc-hairline);
+    }
+    .example-list li:first-child { border-top: 1px solid var(--nbc-hairline); }
+
+    /* ---------- Prompts ---------- */
+    .prompts { list-style: none; padding: 0; margin: 18px 0 0; }
+    .prompts > li {
+      display: grid; grid-template-columns: 0.55in 1fr; gap: 18px;
+      padding: 20px 0; border-bottom: 1px solid var(--nbc-hairline);
+    }
+    .prompts > li:first-child { border-top: 1px solid var(--nbc-hairline); }
+    .prompts .num { font-family: var(--font-mono); font-size: 11pt; color: var(--nbc-red); letter-spacing: var(--tracking-mono); padding-top: 4px; }
+    .prompts .text { font-family: var(--font-display); font-weight: 500; font-size: 14pt; line-height: 1.45; color: var(--nbc-text-primary); letter-spacing: -0.01em; }
+
+    /* ---------- Alex's words page ---------- */
+    .words-intro { margin-bottom: 26px; }
+    .words-stage {
+      margin-top: 8px; padding: 36px 40px;
+      border: 1px solid var(--nbc-hairline);
+      background: var(--nbc-white);
+      column-count: 2; column-gap: 36px; column-rule: 1px solid var(--nbc-hairline);
+    }
+    .words-stage ul { list-style: none; padding: 0; margin: 0; }
+    .words-stage li {
+      font-family: var(--font-display); font-weight: 500; font-size: 13pt;
+      line-height: 1.55; color: var(--nbc-text-primary);
+      letter-spacing: -0.005em;
+      padding: 4px 0;
+      break-inside: avoid;
+    }
+    .words-stage li::before {
+      content: "—"; color: var(--nbc-red); margin-right: 10px; font-weight: 700;
+    }
+    .words-attribution {
+      margin-top: 18px; font-family: var(--font-mono); font-size: 9.5pt;
+      color: var(--nbc-text-muted); letter-spacing: var(--tracking-mono);
+    }
+
+    /* ---------- Patterns / themes ---------- */
+    .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 18px 0 0; }
+    .theme {
+      padding: 20px 22px; border: 1px solid var(--nbc-hairline); background: var(--nbc-white);
+      break-inside: avoid;
+    }
+    .theme .label {
+      font-family: var(--font-mono); font-size: 9.5pt; color: var(--nbc-red);
+      letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .theme h4 {
+      font-family: var(--font-display); font-weight: 700; font-size: 15pt;
+      letter-spacing: -0.01em; color: var(--nbc-text-primary);
+      margin: 0 0 8px;
+    }
+    .theme .traces {
+      font-family: var(--font-display); font-weight: 400; font-size: 10.5pt;
+      line-height: 1.45; color: var(--nbc-text-body);
+    }
+    .theme .traces em { font-style: italic; color: var(--nbc-text-muted); }
+
+    /* ---------- Closing ---------- */
+    .closing-stage { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .closing-stage h1 { font-size: 80pt; margin-bottom: 18px; }
+    .closing-contact {
+      margin-top: 30px; font-family: var(--font-mono); font-size: 11pt;
+      letter-spacing: var(--tracking-mono);
+      display: flex; flex-wrap: wrap; gap: 12px 18px;
+    }
+    .closing-contact .sep { opacity: 0.6; }
+
+    /* ---------- Print refinements ---------- */
+    @media print {
+      body { background: var(--nbc-off-white); }
+      .page { box-shadow: none !important; margin: 0 !important; }
+      a { color: inherit; text-decoration: none; }
+    }
+
+    /* ---------- Screen-only (preview) niceties ---------- */
+    @media screen {
+      body { padding: 24px 0; display: flex; flex-direction: column; align-items: center; gap: 24px; background: #d9d4c5; }
+      .page { box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== COVER ============================== -->
+  <section class="page">
+    <div class="cover-head">
+      <div class="eyebrow">Nick Banks Consulting</div>
+      <div class="mono">// workshop · {{WORKSHOP_YEAR}}</div>
+    </div>
+
+    <div class="cover-stage">
+      <h1 class="h-hero">The un-mission<br>mission.</h1>
+      <p class="subtitle">A working document — what we covered, what you wrote, what to keep working with.</p>
+      <p class="for-line">For <span class="accent-red">{{CLIENT_NAME}}</span>.</p>
+    </div>
+
+    <div class="cover-foot">
+      <div>// from nick banks consulting</div>
+      <div style="text-align:center;">// strategy with a pulse</div>
+      <div class="end">// keep this. work it.</div>
+    </div>
+  </section>
+
+  <!-- ============================== 01. THE PREMISE ============================== -->
+  <section class="page section-break">
+    <div class="racing-number" aria-hidden="true">01</div>
+    <div class="eyebrow">Part one</div>
+    <h2 class="h-section">The premise.</h2>
+    <p class="subtitle">A short re-framing of what mission actually is, before you go back to your day.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">The definition</div>
+      <div class="mono">// the whole thing, in one sentence</div>
+    </div>
+
+    <p class="body-copy">Forget vision, purpose, slogan, brand promise — set them aside for now. Mission, the way I use the word, is something simpler and harder.</p>
+
+    <div class="definition-card">
+      <h2 class="h-large">How you want to leave everyone you come into contact with.</h2>
+      <p class="mono">// that's it. that's the whole thing.</p>
+    </div>
+
+    <p class="body-copy" style="margin-top:22px;">Notice what it isn't about. It isn't about you, or your business, or your product, or your service. It starts from what you want for the people you touch — clients, employees, friends, family, anyone who walks away from time with you. That orientation is the whole shift.</p>
+    <p class="body-copy">When that's clear, almost everything else gets easier. The right calls, the right hires, the right work, the right "no's" — they all follow from a settled answer to that one question.</p>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · the premise — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 02. WHY IT MATTERS ============================== -->
+  <section class="page section-break">
+    <div class="racing-number" aria-hidden="true">02</div>
+    <div class="eyebrow">Part two</div>
+    <h2 class="h-section">Why it matters.</h2>
+    <p class="subtitle">What Jim Collins found, and why mission is the line that separates the companies that lasted from the ones that didn't.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Built to last</div>
+      <div class="mono">// the pattern</div>
+    </div>
+
+    <h2 class="h-large">Most companies don't make it past one decade.</h2>
+    <p class="body-copy">Jim Collins studied the rare ones that did — the companies still standing at 80, 90, 100+ years. He wanted the common thread.</p>
+    <p class="body-copy">Most of the survivors stayed flat. A small subset did something else entirely — they kept climbing, decade after decade. And the thing that subset shared wasn't a product, or a market, or even a leader. It was a commitment statement. A mission, lived from the inside.</p>
+
+    <h3 class="h-mid" style="margin-top: 36px;">Three benefits of a clear one.</h3>
+    <ol class="numbered-list">
+      <li>
+        <div class="num">01 /</div>
+        <div class="body">
+          <strong>The decision-making tool.</strong>
+          <p>You make decisions all day. Most of them aren't covered by policy. The mission gives you the next step when the manual runs out — the same way Disney's street sweeper, on seeing a child crying, puts down the broom and goes to deliver magic, fun, and happiness.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">02 /</div>
+        <div class="body">
+          <strong>The team alignment tool.</strong>
+          <p>The companies that last have an almost cult-like fanaticism to their mission. Not in a creepy way — in a clarifying way. People who fit lean in. People who don't either find their feet or take themselves out. You don't have to police it. The mission does.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">03 /</div>
+        <div class="body">
+          <strong>The thing that makes you loved.</strong>
+          <p>When every act, email, meeting, and product is held up against the mission, people can't help but feel it. They walk away lit up, telling someone else. The work compounds. Referrals stop being marketing and start being a side effect.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · why it matters — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 03. EXAMPLES ============================== -->
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">A few you've heard of</div>
+      <div class="mono">// short, internal, alive</div>
+    </div>
+
+    <h2 class="h-large">Some real ones.</h2>
+
+    <div class="examples-grid">
+      <div class="example-row">
+        <div class="label">// disney</div>
+        <div class="quote">Magic, fun, and happiness.</div>
+      </div>
+      <div class="example-row">
+        <div class="label">// coca-cola</div>
+        <div class="quote">To refresh the world.</div>
+      </div>
+      <div class="example-row contrast">
+        <div class="label">// pepsi (not a mission)</div>
+        <div class="quote">"We have absolute clarity around what we do. We sell soda. Our success will ensure customers build their businesses, employees build their futures, and shareholders build their wealth."</div>
+      </div>
+    </div>
+
+    <p class="mono" style="margin-top: 14px;">// notice who pepsi is talking to. notice who coke is talking to.</p>
+
+    <h3 class="h-mid" style="margin-top: 38px;">A few from work I've done.</h3>
+    <ul class="example-list">
+      <li>Life unleashed.</li>
+      <li>Holy <span style="opacity:0.55;">f*</span> what a rush.</li>
+      <li>Lit up.</li>
+      <li>Stoked.</li>
+      <li>Life is great.</li>
+      <li>Leaning, learning, loving.</li>
+    </ul>
+    <p class="mono" style="margin-top: 14px;">// short. specific. internal. nobody outside needs to translate it.</p>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · examples — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 04. THE PROMPTS ============================== -->
+  <section class="page section-break">
+    <div class="racing-number" aria-hidden="true">03</div>
+    <div class="eyebrow">Part three</div>
+    <h2 class="h-section">The prompts.</h2>
+    <p class="subtitle">The questions we sat with together. Sit with them again — the answers move.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Start here</div>
+      <div class="mono">// three ways in</div>
+    </div>
+
+    <h2 class="h-large">How do you want to leave people?</h2>
+    <p class="body-copy">Three angles on the same question. Use whichever one cracks it open today; come back to the others next week.</p>
+
+    <ol class="prompts">
+      <li>
+        <div class="num">01 /</div>
+        <div class="text">Everyone you come into contact with — clients, employees, even people who've left. How do you want them to feel when they walk away?</div>
+      </li>
+      <li>
+        <div class="num">02 /</div>
+        <div class="text">Your closest, dearest person — after a lunch together. How would you want to leave them, such that you could "shoot me now" and you'd be okay with that?</div>
+      </li>
+      <li>
+        <div class="num">03 /</div>
+        <div class="text">Your children — if they were left this way in life, would you be content?</div>
+      </li>
+    </ol>
+
+    <p class="mono" style="margin-top: 28px;">// the words you find here aren't the answer. the answer is what they point at.</p>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · the prompts — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 05. ALEX'S WORDS ============================== -->
+  <section class="page section-break">
+    <div class="racing-number" aria-hidden="true">04</div>
+    <div class="eyebrow">Part four</div>
+    <h2 class="h-section">Your words.</h2>
+    <p class="subtitle">What you wrote in the room. Raw, in the order they came. This is the soil.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Your brainstorm</div>
+      <div class="mono">// captured live · light typo pass only</div>
+    </div>
+
+    <div class="words-intro">
+      <h2 class="h-large">How you want to leave people.</h2>
+      <p class="body-copy">Below — the words exactly as they came up for you, in the order they came. Nothing edited for sense. Nothing prettified. Read them through once at the pace you wrote them. Then read them again slowly and notice which ones make you smile, lean forward, or suddenly feel something in your chest. Those are the live ones.</p>
+    </div>
+
+    <div class="words-stage">
+      <ul>
+        {{CAPTURED_WORDS_LIST}}
+      </ul>
+    </div>
+
+    <p class="words-attribution">// {{CLIENT_NAME_LOWER}} · live capture from the workshop · do not lose this page.</p>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · your words — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 06. PATTERNS ============================== -->
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">What I'm hearing</div>
+      <div class="mono">// patterns, not conclusions</div>
+    </div>
+
+    <h2 class="h-large">Threads that ran through your words.</h2>
+    <p class="body-copy">Reading what you wrote, a few clusters keep showing up. Not a verdict — just where the gravity sits. See if any of these feel like they're closer to the centre than the others.</p>
+
+    <div class="themes">
+      {{THEME_CARDS}}
+    </div>
+
+    <p class="mono" style="margin-top: 28px;">// don't pick the "right" one. notice which one your body picks before your head does.</p>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · patterns — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 07. PRINCIPLES ============================== -->
+  <section class="page section-break">
+    <div class="racing-number" aria-hidden="true">05</div>
+    <div class="eyebrow">Part five</div>
+    <h2 class="h-section">How this works.</h2>
+    <p class="subtitle">Seven things to keep in mind as you work with what you've got.</p>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Operating principles</div>
+      <div class="mono">// the seven · part one of two</div>
+    </div>
+
+    <ol class="numbered-list">
+      <li>
+        <div class="num">01 /</div>
+        <div class="body">
+          <strong>It's internal.</strong>
+          <p>Your mission is for you and your team. No one outside needs to understand it or even know it. You can choose to share it externally — but you don't have to. "Remi moments." "Heli." Internal language is part of the magic.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">02 /</div>
+        <div class="body">
+          <strong>No format rules.</strong>
+          <p>One word. Three words. A sentence. A phrase. The form doesn't matter — the shift in your body when you say it does. You'll know you have it when you can't help but smile when you say it out loud.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">03 /</div>
+        <div class="body">
+          <strong>It's a heart process, not a head one.</strong>
+          <p>The first words will come from your head — sensible, polished, clever. Keep going. Go deeper into the unknown until the thing that comes up makes you feel something. The heart won't let you fake it.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">04 /</div>
+        <div class="body">
+          <strong>Watch your body, not your mouth.</strong>
+          <p>Your nervous system is the truth-teller. When you nail it, you'll feel a wave — energy, excitement, the urge to grin. If you can say it without smiling, you haven't got it yet.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · principles 1–4 — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Operating principles</div>
+      <div class="mono">// the seven · part two of two</div>
+    </div>
+
+    <ol class="numbered-list">
+      <li>
+        <div class="num">05 /</div>
+        <div class="body">
+          <strong>Don't wait for perfect.</strong>
+          <p>There may never be a perfect articulation. Each working session, choose a "current mission" you'll work with for now. It will evolve. Disney, Sony, the long-lasting ones — they all rewrote theirs over time. Move with it.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">06 /</div>
+        <div class="body">
+          <strong>Start at the centre, then move out.</strong>
+          <p>Live it with yourself first. Then your immediate team. Then your clients, suppliers, partners. The further out you try to push it before it's lived at the centre, the faster it dies as words on a page.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">07 /</div>
+        <div class="body">
+          <strong>Name a mission manager.</strong>
+          <p>Inside a company, give someone the job of keeping the mission front and centre. Their role is to notice when the company drifts out of integrity with it — and to bring it back. Without that role, the mission becomes a poster on the wall.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · principles 5–7 — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== 08. WHAT'S NEXT ============================== -->
+  <section class="page">
+    <div class="page-head">
+      <div class="eyebrow">Now what</div>
+      <div class="mono">// the homework, gently</div>
+    </div>
+
+    <h2 class="h-large">Try it on.</h2>
+    <p class="lead">Take what you've already got — the words on page five, the threads on page six — and live with them for a while.</p>
+
+    <ol class="numbered-list" style="margin-top: 24px;">
+      <li>
+        <div class="num">01 /</div>
+        <div class="body">
+          <strong>Sit with the words.</strong>
+          <p>For the next week, read your list once a day. No editing. Just notice which ones still flicker and which ones have already gone flat.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">02 /</div>
+        <div class="body">
+          <strong>Try one on for a week.</strong>
+          <p>Pick a current working version — it doesn't have to be the final one — and run a few decisions through it. A hire. A pricing call. A "yes" or "no" you've been avoiding. See what happens.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">03 /</div>
+        <div class="body">
+          <strong>Tell one person.</strong>
+          <p>Say it out loud to someone whose read you trust. Not for their edits — for your own body. Watch what your face does when you say it. That's the data.</p>
+        </div>
+      </li>
+      <li>
+        <div class="num">04 /</div>
+        <div class="body">
+          <strong>Come back to it.</strong>
+          <p>This is the soil, not the final tree. We'll keep working it together. When something shifts — or stays stubbornly stuck — that's the time to talk.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>for {{CLIENT_NAME_LOWER}} · what's next — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+  <!-- ============================== CLOSING ============================== -->
+  <section class="page page--red">
+    <div class="page-head">
+      <div class="eyebrow">For {{CLIENT_NAME}}</div>
+      <div class="mono">// from nick</div>
+    </div>
+
+    <div class="closing-stage">
+      <h1 class="h-hero">Now go and<br>do this work.</h1>
+      <p class="subtitle" style="font-size: 16pt; max-width: 5.5in;">You've already got more of it than you think. The words on your page are pointing somewhere — keep walking toward them.</p>
+
+      <div class="closing-contact">
+        <span>nick@nickbanksconsulting.com</span>
+        <span class="sep">/</span>
+        <span>nickbanksconsulting.com</span>
+        <span class="sep">/</span>
+        <span>778.987.5230</span>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <span>// nick banks consulting</span>
+      <span>strategy with a pulse — <span class="page-num-display"></span></span>
+    </div>
+  </section>
+
+</body>
+</html>

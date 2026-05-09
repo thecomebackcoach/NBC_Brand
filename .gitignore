@@ -18,6 +18,8 @@ dist/
 # The folders themselves and their READMEs are tracked; generated HTML/PDF outputs are not.
 invoices/*.html
 invoices/*.pdf
+recaps/*.html
+recaps/*.pdf
 clients/
 
 # One-off legacy client artifacts in the workshop folder (predate the invoices/ convention)
