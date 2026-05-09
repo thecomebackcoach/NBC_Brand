@@ -1,7 +1,7 @@
 {
   "$schema": "https://nickbanksconsulting.com/design-system.schema.json",
   "name": "Nick Banks Consulting Design System",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Visual and editorial system for Nick Banks Consulting (NBC). A practical leadership support practice that sits between fresh/AI-fluent and grounded/human. The system has to hold both.",
 
   "brand": {

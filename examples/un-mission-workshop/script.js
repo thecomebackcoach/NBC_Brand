@@ -277,17 +277,46 @@
     });
   });
 
-  // ---------- Capture board (sessionStorage) ----------
+  // ---------- Capture board (localStorage + export) ----------
   // Slide 33 holds a live textarea where Nick types participants' words.
-  // Persist across slide nav and F5; reset when the tab closes.
+  // Persist across slide nav, F5, AND tab close — only cleared via the Clear button.
   const captureBoard = document.querySelector('[data-capture-board]');
   if (captureBoard) {
     const CAPTURE_KEY = 'nbc-workshop-capture-board';
-    const stored = sessionStorage.getItem(CAPTURE_KEY);
+    const stored = localStorage.getItem(CAPTURE_KEY);
     if (stored !== null) captureBoard.value = stored;
     captureBoard.addEventListener('input', () => {
-      sessionStorage.setItem(CAPTURE_KEY, captureBoard.value);
+      localStorage.setItem(CAPTURE_KEY, captureBoard.value);
     });
+
+    const exportBtn = document.querySelector('[data-capture-export]');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        const text = captureBoard.value;
+        const today = new Date().toISOString().slice(0, 10);
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `capture-${today}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    const clearBtn = document.querySelector('[data-capture-clear]');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (!captureBoard.value) return;
+        const ok = window.confirm('Clear the capture board? This cannot be undone — export first if you want a copy.');
+        if (!ok) return;
+        captureBoard.value = '';
+        localStorage.removeItem(CAPTURE_KEY);
+        captureBoard.focus();
+      });
+    }
   }
 
   // ---------- Init ----------

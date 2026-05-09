@@ -730,11 +730,15 @@
     <section class="slide" id="slide-33" data-surface="white">
       <div class="slide-top">
         <div class="eyebrow">Capture</div>
-        <div class="mono">// type freely. nothing's saved beyond this session.</div>
+        <div class="mono">// type freely. saves locally. export when done.</div>
       </div>
       <div class="slide-content capture-slide">
         <h2 class="h-mid">Let's get the words down.</h2>
         <textarea class="capture-board" data-capture-board aria-label="Workshop capture board" spellcheck="false"></textarea>
+        <div class="capture-actions">
+          <button type="button" class="capture-action" data-capture-clear>// clear</button>
+          <button type="button" class="capture-action capture-action--primary" data-capture-export>// export .txt</button>
+        </div>
       </div>
       <div class="slide-footer">
         <div class="footer-mark">NBC</div>

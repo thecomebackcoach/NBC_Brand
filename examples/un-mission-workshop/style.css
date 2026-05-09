@@ -1900,3 +1900,47 @@ body.print-mode .slide[data-state-2-surface="ink"] {
   color: var(--nbc-text-muted-light);
   opacity: 0.5;
 }
+
+.capture-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.4cqw;
+  margin-top: 0.6cqw;
+}
+
+.capture-action {
+  font-family: var(--nbc-font-mono);
+  font-size: 1.2cqw;
+  letter-spacing: var(--nbc-tracking-mono);
+  color: var(--nbc-text-muted-light);
+  background: transparent;
+  border: 1px solid var(--nbc-hairline-light);
+  padding: 0.7cqw 1.2cqw;
+  cursor: pointer;
+  transition: color 160ms var(--reveal-easing), border-color 160ms var(--reveal-easing), background 160ms var(--reveal-easing);
+}
+
+.capture-action:hover,
+.capture-action:focus {
+  color: var(--nbc-text-primary-light);
+  border-color: var(--nbc-text-primary-light);
+  outline: none;
+}
+
+.capture-action--primary {
+  color: var(--nbc-red);
+  border-color: var(--nbc-red);
+}
+
+.capture-action--primary:hover,
+.capture-action--primary:focus {
+  color: var(--nbc-white);
+  background: var(--nbc-red);
+  border-color: var(--nbc-red);
+}
+
+body.print-mode .capture-actions { display: none; }
+@media print {
+  .capture-actions { display: none; }
+}
